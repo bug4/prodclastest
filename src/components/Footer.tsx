@@ -1,7 +1,15 @@
+"use client";
+
 import Link from "next/link";
 import { Logo } from "./Logo";
+import { useLocale, localeHref } from "@/lib/useLocale";
+import { getDict } from "@/lib/i18n";
 
 export function Footer() {
+  const locale = useLocale();
+  const tNav = getDict(locale).nav;
+  const t = getDict(locale).footer;
+
   return (
     <footer className="bg-ink text-bg-paper px-8 lg:px-15 pt-24 pb-10">
       <div className="max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr_1.3fr] gap-12 lg:gap-20 pb-15 border-b border-white/10">
@@ -9,10 +17,7 @@ export function Footer() {
           <div className="[&_span:first-child]:!text-bg-paper [&_span:nth-child(2)]:!text-brass">
             <Logo variant="light" />
           </div>
-          <p className="text-sm leading-relaxed opacity-70 my-6 max-w-xs">
-            O selecție atent curată de gresie și faianță, pentru spații care merită memoria.
-            Profesionalism, autenticitate, atenție la detaliu.
-          </p>
+          <p className="text-sm leading-relaxed opacity-70 my-6 max-w-xs">{t.tagline}</p>
           <div className="flex gap-3">
             {["facebook", "instagram", "tiktok"].map((s) => (
               <a
@@ -28,22 +33,22 @@ export function Footer() {
         </div>
 
         <div className="flex flex-col gap-3.5">
-          <h4 className="text-[11px] tracking-[0.25em] uppercase text-brass mb-3">Navigare</h4>
+          <h4 className="text-[11px] tracking-[0.25em] uppercase text-brass mb-3">{t.navHeader}</h4>
           {[
-            { href: "/", label: "Acasă" },
-            { href: "/produse", label: "Produse" },
-            { href: "/promotii", label: "Promoții" },
-            { href: "/arhitecti", label: "Arhitecți" },
-            { href: "/contacte", label: "Contacte" },
+            { internal: "/", label: tNav.home },
+            { internal: "/produse", label: tNav.products },
+            { internal: "/promotii", label: tNav.promotions },
+            { internal: "/arhitecti", label: tNav.architects },
+            { internal: "/contacte", label: tNav.contact },
           ].map((l) => (
-            <Link key={l.href} href={l.href} className="text-sm opacity-75 hover:opacity-100 hover:text-brass transition-all">
+            <Link key={l.internal} href={localeHref(locale, l.internal)} className="text-sm opacity-75 hover:opacity-100 hover:text-brass transition-all">
               {l.label}
             </Link>
           ))}
         </div>
 
         <div className="flex flex-col gap-3.5">
-          <h4 className="text-[11px] tracking-[0.25em] uppercase text-brass mb-3">Contact</h4>
+          <h4 className="text-[11px] tracking-[0.25em] uppercase text-brass mb-3">{t.contactHeader}</h4>
           <a href="tel:+37368425507" className="text-sm opacity-75 hover:opacity-100 hover:text-brass transition-all">
             +373 68 425 507
           </a>
@@ -51,24 +56,19 @@ export function Footer() {
             contact@prodclas.md
           </a>
           <span className="text-sm opacity-75">Str. Alba Iulia 22, Chișinău</span>
-          <span className="text-sm opacity-75">Luni–Sâmbătă · 09:00 – 18:00</span>
         </div>
 
         <div className="flex flex-col gap-3.5">
-          <h4 className="text-[11px] tracking-[0.25em] uppercase text-brass mb-1">Rămâi în legătură</h4>
-          <p className="text-[13px] opacity-70 mb-2">Noutăți despre colecții, promoții și evenimente.</p>
+          <h4 className="text-[11px] tracking-[0.25em] uppercase text-brass mb-1">{t.newsletterHeader}</h4>
+          <p className="text-[13px] opacity-70 mb-2">{t.newsletterDesc}</p>
           <form className="flex border border-white/20 rounded-full overflow-hidden">
             <input
               type="email"
-              placeholder="Adresa ta de email"
+              placeholder={t.newsletterPlaceholder}
               required
               className="flex-1 bg-transparent border-0 px-4 py-3 text-[13px] focus:outline-none placeholder:text-white/40"
             />
-            <button
-              type="submit"
-              className="bg-brass text-ink px-5 hover:bg-brass-light transition-colors"
-              aria-label="Abonează-te"
-            >
+            <button type="submit" className="bg-brass text-ink px-5 hover:bg-brass-light transition-colors" aria-label="OK">
               <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="1.8">
                 <path d="M5 12h14M13 6l6 6-6 6" />
               </svg>
@@ -78,11 +78,11 @@ export function Footer() {
       </div>
 
       <div className="max-w-[1400px] mx-auto mt-10 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs opacity-50">
-        <span>© {new Date().getFullYear()} Prodclas. Toate drepturile rezervate.</span>
+        <span>© {new Date().getFullYear()} Prodclas. {t.rights}</span>
         <div className="flex gap-8">
-          <a href="#" className="hover:opacity-100">Termeni</a>
-          <a href="#" className="hover:opacity-100">Confidențialitate</a>
-          <a href="#" className="hover:opacity-100">Cookies</a>
+          <a href="#" className="hover:opacity-100">{t.terms}</a>
+          <a href="#" className="hover:opacity-100">{t.privacy}</a>
+          <a href="#" className="hover:opacity-100">{t.cookies}</a>
         </div>
       </div>
     </footer>

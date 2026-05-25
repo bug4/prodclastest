@@ -2,27 +2,32 @@ import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 import { ContactForm } from "@/components/ContactForm";
 import { INTERIORS } from "@/lib/interiors";
+import { getDict, type Locale } from "@/lib/i18n";
 
-export const metadata = {
-  title: "Contacte",
-  description: "Contactează echipa Prodclas — telefon, email, adresa showroom-ului din Chișinău.",
-};
+type Props = { params: Promise<{ locale: Locale }> };
 
-export default function ContactePage() {
+export async function generateMetadata({ params }: Props) {
+  const { locale } = await params;
+  const t = getDict(locale).contact;
+  return { title: `${t.titleA} ${t.titleB}`, description: t.desc };
+}
+
+export default async function ContactePage({ params }: Props) {
+  const { locale } = await params;
+  const t = getDict(locale).contact;
+  const tc = getDict(locale).common;
+
   return (
     <>
       <Nav />
       <main>
         <section className="px-8 lg:px-15 pt-44 lg:pt-52 pb-20 max-w-[1400px] mx-auto grid lg:grid-cols-2 gap-12 lg:gap-24 items-start">
           <div>
-            <div className="eyebrow mb-6">Contactează-ne</div>
+            <div className="eyebrow mb-6">{t.eyebrow}</div>
             <h1 className="page-title">
-              Hai să <em>discutăm.</em>
+              {t.titleA} <em>{t.titleB}</em>
             </h1>
-            <p className="mt-6 text-lg text-ink-soft leading-relaxed max-w-md">
-              Ai nevoie de ajutor în alegerea produselor potrivite? Vino în showroom sau scrie-ne —
-              primești suport personalizat de la cineva care chiar înțelege materialele.
-            </p>
+            <p className="mt-6 text-lg text-ink-soft leading-relaxed max-w-md">{t.desc}</p>
 
             <div className="flex flex-col gap-10 mt-15">
               <ContactBlock
@@ -31,7 +36,7 @@ export default function ContactePage() {
                     <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
                   </svg>
                 }
-                label="Telefon"
+                label={t.phone}
                 value="+373 68 425 507"
                 href="tel:+37368425507"
               />
@@ -42,7 +47,7 @@ export default function ContactePage() {
                     <path d="M2 7l10 6 10-6" />
                   </svg>
                 }
-                label="Email"
+                label={t.email}
                 value="contact@prodclas.md"
                 href="mailto:contact@prodclas.md"
               />
@@ -53,8 +58,8 @@ export default function ContactePage() {
                     <circle cx="12" cy="10" r="3" />
                   </svg>
                 }
-                label="Adresa"
-                value={<>Str. Alba Iulia 22<br />Chișinău, Republica Moldova</>}
+                label={t.address}
+                value={<>{t.addressValue}<br />{t.city}</>}
               />
               <ContactBlock
                 icon={
@@ -63,8 +68,8 @@ export default function ContactePage() {
                     <path d="M12 7v5l3 3" />
                   </svg>
                 }
-                label="Program"
-                value={<>Luni–Vineri · 09:00 – 18:00<br />Sâmbătă · 10:00 – 15:00</>}
+                label={t.schedule}
+                value={<>{t.hoursWeekday}<br />{t.hoursSaturday}</>}
               />
             </div>
           </div>
@@ -82,22 +87,25 @@ export default function ContactePage() {
         </section>
 
         <section className="bg-ink text-bg-paper px-8 lg:px-15 py-30 relative overflow-hidden">
-          <span
-            aria-hidden
-            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 font-serif italic font-light text-white/[0.04] pointer-events-none leading-none whitespace-nowrap"
-            style={{ fontSize: "clamp(200px, 26vw, 380px)" }}
-          >
-            Contacte
-          </span>
           <div className="relative z-10 max-w-3xl mx-auto">
             <div className="mb-15">
-              <div className="eyebrow text-brass mb-6">Formular</div>
+              <div className="eyebrow text-brass mb-6">{t.formEyebrow}</div>
               <h2 className="font-serif font-light leading-none tracking-tight text-5xl mb-4">
-                Scrie-ne câteva <em className="italic font-normal text-brass">rânduri.</em>
+                {t.formTitleA} <em className="italic font-normal text-brass">{t.formTitleB}</em>
               </h2>
-              <p className="opacity-70">Răspundem în maxim 24 de ore lucrătoare. Pentru cereri urgente, sună direct.</p>
+              <p className="opacity-70">{t.formDesc}</p>
             </div>
-            <ContactForm />
+            <ContactForm labels={{
+              firstName: t.form.firstName,
+              lastName: t.form.lastName,
+              phone: t.form.phone,
+              email: t.form.email,
+              subject: t.form.subject,
+              subjectPlaceholder: t.form.subjectPlaceholder,
+              message: t.form.message,
+              submit: tc.sendMessage,
+              submitting: tc.submitting,
+            }} />
           </div>
         </section>
       </main>

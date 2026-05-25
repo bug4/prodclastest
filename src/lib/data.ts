@@ -15,6 +15,7 @@ export async function getCollections(): Promise<Collection[]> {
   }
   return data ?? [];
 }
+
 export async function getProducts(opts?: {
   collectionSlug?: string;
   featured?: boolean;
@@ -32,7 +33,7 @@ export async function getProducts(opts?: {
       .eq("slug", opts.collectionSlug)
       .maybeSingle();
     if (col) collectionId = col.id;
-    else return [];
+    else return []; // colectie inexistenta
   }
 
   let query = supabase
@@ -42,6 +43,7 @@ export async function getProducts(opts?: {
   if (opts?.featured) query = query.eq("is_featured", true);
   if (collectionId) query = query.eq("collection_id", collectionId);
 
+  // Sortare
   if (opts?.sortByPrice) {
     query = query.order("price_mdl", { ascending: opts.sortByPrice === "asc" });
   } else {

@@ -2,18 +2,21 @@ import Link from "next/link";
 import Image from "next/image";
 import type { ProductWithCollection } from "@/lib/types";
 import { placeholderTile } from "@/lib/placeholder";
+import { localeHref } from "@/lib/localeHref";
+import { DEFAULT_LOCALE, type Locale } from "@/lib/i18n";
 
 type Props = {
   product: ProductWithCollection;
+  locale?: Locale;
 };
 
-export function ProductCard({ product }: Props) {
+export function ProductCard({ product, locale = DEFAULT_LOCALE }: Props) {
   const imgSrc =
     product.image_url ??
     placeholderTile(product.collection?.slug ?? null, product.slug);
 
   return (
-    <Link href={`/produse/${product.slug}`} className="group block">
+    <Link href={localeHref(locale, `/produse/${product.slug}`)} className="group block">
       <div className="relative aspect-[3/4] overflow-hidden rounded-xl bg-bg-deep mb-4">
         {product.collection?.name && (
           <span className="absolute top-4 left-4 z-10 text-[10px] font-semibold tracking-[0.15em] uppercase bg-bg-paper/90 backdrop-blur-md px-3 py-1.5 rounded-full text-brass-deep">
@@ -21,7 +24,6 @@ export function ProductCard({ product }: Props) {
           </span>
         )}
 
-        {/* Use unoptimized Image pentru data: URIs si poze din Supabase */}
         <Image
           src={imgSrc}
           alt={product.name}

@@ -7,27 +7,33 @@ import { ProductCard } from "@/components/ProductCard";
 import { Reveal } from "@/components/Reveal";
 import { getProductBySlug, getProducts } from "@/lib/data";
 import { placeholderTile } from "@/lib/placeholder";
+import { getDict, type Locale } from "@/lib/i18n";
+import { localeHref } from "@/lib/localeHref";
 
 type Props = {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ locale: Locale; slug: string }>;
 };
 
 export async function generateMetadata({ params }: Props) {
   const { slug } = await params;
   const product = await getProductBySlug(slug);
-  if (!product) return { title: "Produs negăsit" };
+  if (!product) return { title: "Not found" };
   return {
     title: product.name,
-    description: product.description ?? `${product.name} — ${product.collection?.name ?? "Gresie premium"}.`,
+    description: product.description ?? `${product.name} — ${product.collection?.name ?? "Premium tiles"}.`,
   };
 }
 
 export const revalidate = 60;
 
 export default async function ProductDetailPage({ params }: Props) {
-  const { slug } = await params;
+  const { locale, slug } = await params;
   const product = await getProductBySlug(slug);
   if (!product) notFound();
+
+  const tc = getDict(locale).common;
+  const t = getDict(locale).products.detail;
+  const h = (path: string) => localeHref(locale, path);
 
   const related = (
     await getProducts({ collectionSlug: product.collection?.slug, limit: 5 })
@@ -41,17 +47,15 @@ export default async function ProductDetailPage({ params }: Props) {
       <Nav />
       <main>
         <section className="px-8 lg:px-15 pt-32 pb-20 max-w-[1400px] mx-auto">
-          {/* Breadcrumb */}
           <nav className="flex items-center gap-2 text-xs tracking-[0.15em] uppercase text-ink-muted mb-10">
-            <Link href="/" className="hover:text-ink transition-colors">Acasă</Link>
+            <Link href={h("/")} className="hover:text-ink transition-colors">{tc.breadcrumbHome}</Link>
             <span>/</span>
-            <Link href="/produse" className="hover:text-ink transition-colors">Produse</Link>
+            <Link href={h("/produse")} className="hover:text-ink transition-colors">{tc.breadcrumbProducts}</Link>
             <span>/</span>
             <span className="text-ink">{product.name}</span>
           </nav>
 
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-start">
-            {/* Image */}
             <div className="relative aspect-[4/5] overflow-hidden rounded-2xl bg-bg-deep">
               {product.collection?.name && (
                 <span className="absolute top-6 left-6 z-10 text-[11px] font-semibold tracking-[0.2em] uppercase bg-bg-paper/90 backdrop-blur-md px-4 py-2 rounded-full text-brass-deep">
@@ -69,9 +73,8 @@ export default async function ProductDetailPage({ params }: Props) {
               />
             </div>
 
-            {/* Info */}
             <div className="lg:pt-8">
-              <div className="eyebrow mb-6">{product.collection?.name ?? "Gresie"}</div>
+              <div className="eyebrow mb-6">{product.collection?.name ?? "Tiles"}</div>
               <h1 className="font-serif font-light leading-none tracking-tight mb-8" style={{ fontSize: "clamp(36px, 5vw, 64px)" }}>
                 {product.name}
               </h1>
@@ -80,49 +83,46 @@ export default async function ProductDetailPage({ params }: Props) {
                 <p className="text-lg leading-relaxed text-ink-soft mb-10">{product.description}</p>
               )}
 
-              {/* Specs */}
               <dl className="grid grid-cols-2 gap-6 border-y border-line py-8 mb-10">
-                {product.origin && <SpecItem label="Origine" value={product.origin} />}
-                {product.size && <SpecItem label="Format" value={`${product.size} cm`} />}
-                {product.finish && <SpecItem label="Finisaj" value={product.finish} />}
-                <SpecItem label="Stoc" value={product.in_stock ? "Disponibil" : "Pe comandă"} />
+                {product.origin && <SpecItem label={tc.origin} value={product.origin} />}
+                {product.size && <SpecItem label={tc.format} value={`${product.size} cm`} />}
+                {product.finish && <SpecItem label={tc.finish} value={product.finish} />}
+                <SpecItem label={tc.stock} value={product.in_stock ? tc.inStock : tc.onOrder} />
               </dl>
 
-              {/* Price */}
               <div className="flex items-end justify-between gap-6 mb-10">
                 <div>
-                  <div className="text-xs tracking-[0.2em] uppercase text-ink-muted mb-2">Preț</div>
+                  <div className="text-xs tracking-[0.2em] uppercase text-ink-muted mb-2">{tc.price}</div>
                   <div className="font-serif text-5xl font-medium text-brass-deep">
                     MDL {product.price_mdl.toLocaleString()}
-                    <span className="font-sans text-base text-ink-muted ml-2">/ m²</span>
+                    <span className="font-sans text-base text-ink-muted ml-2">{tc.perSqm}</span>
                   </div>
                 </div>
               </div>
 
               <div className="flex flex-wrap gap-4">
-                <Link href="/contacte" className="btn btn-primary">
-                  Solicită ofertă
+                <Link href={h("/contacte")} className="btn btn-primary">
+                  {tc.requestQuote}
                   <Arrow />
                 </Link>
-                <Link href="/contacte" className="btn btn-ghost">Cere mostră</Link>
+                <Link href={h("/contacte")} className="btn btn-ghost">{tc.requestSample}</Link>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Related */}
         {related.length > 0 && (
           <Reveal>
             <section className="px-8 lg:px-15 py-30 max-w-[1400px] mx-auto bg-bg-paper">
               <div className="mb-15">
-                <div className="eyebrow mb-4">Din aceeași colecție</div>
+                <div className="eyebrow mb-4">{t.relatedEyebrow}</div>
                 <h2 className="section-title">
-                  Mai vezi <em>și</em>
+                  {t.relatedTitleA} <em>{t.relatedTitleB}</em>
                 </h2>
               </div>
               <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
                 {related.map((p) => (
-                  <ProductCard key={p.id} product={p} />
+                  <ProductCard key={p.id} product={p} locale={locale} />
                 ))}
               </div>
             </section>
