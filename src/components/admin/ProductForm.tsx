@@ -30,7 +30,7 @@ export function ProductForm({ product, collections }: Props) {
     >
       {product?.id && <input type="hidden" name="id" value={product.id} />}
 
-      <div className="bg-bg-paper rounded-2xl p-8 border border-line space-y-6">
+      <div className="bg-bg-paper rounded-2xl p-5 sm:p-8 border border-line space-y-6">
         <h2 className="font-serif text-xl">Detalii produs</h2>
 
         <div className="grid md:grid-cols-2 gap-6">
@@ -149,7 +149,7 @@ export function ProductForm({ product, collections }: Props) {
       </div>
 
       {/* Imagine */}
-      <div className="bg-bg-paper rounded-2xl p-8 border border-line space-y-6">
+      <div className="bg-bg-paper rounded-2xl p-5 sm:p-8 border border-line space-y-6">
         <div>
           <h2 className="font-serif text-xl mb-2">Imagine produs</h2>
           <p className="text-sm text-ink-muted">

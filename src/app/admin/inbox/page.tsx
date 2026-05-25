@@ -19,7 +19,7 @@ export default async function AdminInbox() {
         <div className="text-[11px] tracking-[0.25em] uppercase text-ink-muted mb-3">
           Mesaje primite · {unreadCount} necitite
         </div>
-        <h1 className="font-serif text-5xl font-light tracking-tight">Inbox</h1>
+        <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-light tracking-tight">Inbox</h1>
       </header>
 
       <div className="bg-bg-paper rounded-2xl border border-line overflow-hidden">

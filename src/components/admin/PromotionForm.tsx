@@ -27,7 +27,7 @@ export function PromotionForm({ promotion }: Props) {
     >
       {promotion?.id && <input type="hidden" name="id" value={promotion.id} />}
 
-      <div className="bg-bg-paper rounded-2xl p-8 border border-line space-y-6">
+      <div className="bg-bg-paper rounded-2xl p-5 sm:p-8 border border-line space-y-6">
         <h2 className="font-serif text-xl">Detalii promoție</h2>
 
         <div className="grid md:grid-cols-2 gap-6">
@@ -63,7 +63,7 @@ export function PromotionForm({ promotion }: Props) {
         </label>
       </div>
 
-      <div className="bg-bg-paper rounded-2xl p-8 border border-line space-y-6">
+      <div className="bg-bg-paper rounded-2xl p-5 sm:p-8 border border-line space-y-6">
         <div>
           <h2 className="font-serif text-xl mb-2">Imagine fundal</h2>
           <p className="text-sm text-ink-muted">

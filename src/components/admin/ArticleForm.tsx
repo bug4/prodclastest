@@ -27,7 +27,7 @@ export function ArticleForm({ article }: Props) {
     >
       {article?.id && <input type="hidden" name="id" value={article.id} />}
 
-      <div className="bg-bg-paper rounded-2xl p-8 border border-line space-y-6">
+      <div className="bg-bg-paper rounded-2xl p-5 sm:p-8 border border-line space-y-6">
         <div className="grid md:grid-cols-2 gap-6">
           <Field label="Titlu *" htmlFor="title">
             <input id="title" name="title" type="text" required defaultValue={article?.title ?? ""} className={inputStyle} />
@@ -59,7 +59,7 @@ export function ArticleForm({ article }: Props) {
         </label>
       </div>
 
-      <div className="bg-bg-paper rounded-2xl p-8 border border-line space-y-6">
+      <div className="bg-bg-paper rounded-2xl p-5 sm:p-8 border border-line space-y-6">
         <div>
           <h2 className="font-serif text-xl mb-2">Imagine de copertă</h2>
           <p className="text-sm text-ink-muted">{article?.cover_url && "Lasă gol ca să păstrezi imaginea curentă."}</p>

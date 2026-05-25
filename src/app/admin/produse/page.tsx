@@ -14,10 +14,10 @@ export default async function AdminProduseList() {
 
   return (
     <>
-      <header className="flex items-end justify-between mb-10">
+      <header className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 sm:gap-0 mb-8 sm:mb-10">
         <div>
           <div className="text-[11px] tracking-[0.25em] uppercase text-ink-muted mb-3">Catalog</div>
-          <h1 className="font-serif text-5xl font-light tracking-tight">Produse</h1>
+          <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-light tracking-tight">Produse</h1>
         </div>
         <Link
           href="/admin/produse/nou"

@@ -25,7 +25,7 @@ export function CollectionForm({ collection }: Props) {
     >
       {collection?.id && <input type="hidden" name="id" value={collection.id} />}
 
-      <div className="bg-bg-paper rounded-2xl p-8 border border-line space-y-6">
+      <div className="bg-bg-paper rounded-2xl p-5 sm:p-8 border border-line space-y-6">
         <label className="block">
           <span className="text-[11px] tracking-[0.2em] uppercase text-ink-muted block mb-2">Nume *</span>
           <input name="name" type="text" required defaultValue={collection?.name ?? ""} className={inputStyle} />
