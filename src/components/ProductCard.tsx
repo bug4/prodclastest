@@ -1,0 +1,55 @@
+import Link from "next/link";
+import Image from "next/image";
+import type { ProductWithCollection } from "@/lib/types";
+import { placeholderTile } from "@/lib/placeholder";
+
+type Props = {
+  product: ProductWithCollection;
+};
+
+export function ProductCard({ product }: Props) {
+  const imgSrc =
+    product.image_url ??
+    placeholderTile(product.collection?.slug ?? null, product.slug);
+
+  return (
+    <Link href={`/produse/${product.slug}`} className="group block">
+      <div className="relative aspect-[3/4] overflow-hidden rounded-xl bg-bg-deep mb-4">
+        {product.collection?.name && (
+          <span className="absolute top-4 left-4 z-10 text-[10px] font-semibold tracking-[0.15em] uppercase bg-bg-paper/90 backdrop-blur-md px-3 py-1.5 rounded-full text-brass-deep">
+            {product.collection.name}
+          </span>
+        )}
+
+        {/* Use unoptimized Image pentru data: URIs si poze din Supabase */}
+        <Image
+          src={imgSrc}
+          alt={product.name}
+          fill
+          className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.06]"
+          unoptimized={imgSrc.startsWith("data:")}
+          sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+        />
+
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-400" />
+      </div>
+
+      <div className="flex justify-between items-baseline gap-3">
+        <div>
+          <div className="font-serif text-xl font-normal text-ink tracking-tight">{product.name}</div>
+          {(product.size || product.finish) && (
+            <div className="text-[11px] text-ink-muted tracking-[0.1em] uppercase mt-1">
+              {[product.size && `${product.size} cm`, product.finish].filter(Boolean).join(" · ")}
+            </div>
+          )}
+        </div>
+        <div className="text-right whitespace-nowrap">
+          <div className="font-serif text-base font-medium text-brass-deep">
+            MDL {product.price_mdl.toLocaleString()}
+          </div>
+          <div className="text-[10px] text-ink-muted tracking-[0.1em] uppercase mt-0.5">/ m²</div>
+        </div>
+      </div>
+    </Link>
+  );
+}
