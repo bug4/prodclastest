@@ -46,8 +46,8 @@ export default async function ProductDetailPage({ params }: Props) {
     <>
       <Nav />
       <main>
-        <section className="px-8 lg:px-15 pt-32 pb-20 max-w-[1400px] mx-auto">
-          <nav className="flex items-center gap-2 text-xs tracking-[0.15em] uppercase text-ink-muted mb-10">
+        <section className="px-5 sm:px-8 lg:px-15 pt-28 sm:pt-32 pb-20 max-w-[1400px] mx-auto">
+          <nav className="flex items-center gap-2 text-[10px] sm:text-xs tracking-[0.1em] sm:tracking-[0.15em] uppercase text-ink-muted mb-8 sm:mb-10 flex-wrap">
             <Link href={h("/")} className="hover:text-ink transition-colors">{tc.breadcrumbHome}</Link>
             <span>/</span>
             <Link href={h("/produse")} className="hover:text-ink transition-colors">{tc.breadcrumbProducts}</Link>
@@ -55,7 +55,7 @@ export default async function ProductDetailPage({ params }: Props) {
             <span className="text-ink">{product.name}</span>
           </nav>
 
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-start">
+          <div className="grid lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-20 items-start">
             <div className="relative aspect-[4/5] overflow-hidden rounded-2xl bg-bg-deep">
               {product.collection?.name && (
                 <span className="absolute top-6 left-6 z-10 text-[11px] font-semibold tracking-[0.2em] uppercase bg-bg-paper/90 backdrop-blur-md px-4 py-2 rounded-full text-brass-deep">
@@ -93,7 +93,7 @@ export default async function ProductDetailPage({ params }: Props) {
               <div className="flex items-end justify-between gap-6 mb-10">
                 <div>
                   <div className="text-xs tracking-[0.2em] uppercase text-ink-muted mb-2">{tc.price}</div>
-                  <div className="font-serif text-5xl font-medium text-brass-deep">
+                  <div className="font-serif text-4xl sm:text-5xl font-medium text-brass-deep">
                     MDL {product.price_mdl.toLocaleString()}
                     <span className="font-sans text-base text-ink-muted ml-2">{tc.perSqm}</span>
                   </div>
@@ -113,7 +113,7 @@ export default async function ProductDetailPage({ params }: Props) {
 
         {related.length > 0 && (
           <Reveal>
-            <section className="px-8 lg:px-15 py-30 max-w-[1400px] mx-auto bg-bg-paper">
+            <section className="px-5 sm:px-8 lg:px-15 py-20 sm:py-30 max-w-[1400px] mx-auto bg-bg-paper">
               <div className="mb-15">
                 <div className="eyebrow mb-4">{t.relatedEyebrow}</div>
                 <h2 className="section-title">

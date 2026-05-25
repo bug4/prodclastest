@@ -42,7 +42,7 @@ export default async function ArhitectiPage({ params }: Props) {
     <>
       <Nav />
       <main>
-        <section className="px-8 lg:px-15 pt-44 lg:pt-52 pb-20 max-w-[1400px] mx-auto grid lg:grid-cols-[1fr_1.2fr] gap-12 lg:gap-24 items-end">
+        <section className="px-5 sm:px-8 lg:px-15 pt-44 lg:pt-52 pb-20 max-w-[1400px] mx-auto grid lg:grid-cols-[1fr_1.2fr] gap-12 lg:gap-24 items-end">
           <div>
             <div className="eyebrow mb-6">{t.eyebrow}</div>
             <h1 className="page-title">
@@ -54,7 +54,7 @@ export default async function ArhitectiPage({ params }: Props) {
 
         <div className="grid lg:grid-cols-4 gap-px bg-line border-y border-line max-w-[1400px] mx-auto mb-30">
           {t.benefits.map((b, i) => (
-            <div key={b.title} className="bg-bg px-8 py-15 text-center">
+            <div key={b.title} className="bg-bg px-6 sm:px-8 py-10 sm:py-15 text-center">
               <div className="w-8 h-8 text-brass-deep mx-auto mb-6">{ICONS[i]}</div>
               <h4 className="font-serif text-2xl font-normal mb-3">{b.title}</h4>
               <p className="text-sm text-ink-soft leading-relaxed">{b.body}</p>
@@ -82,11 +82,11 @@ export default async function ArhitectiPage({ params }: Props) {
           </section>
         </Reveal>
 
-        <section className="bg-ink text-bg-paper px-8 lg:px-15 py-30">
+        <section className="bg-ink text-bg-paper px-5 sm:px-8 lg:px-15 py-20 sm:py-30">
           <div className="max-w-4xl mx-auto grid lg:grid-cols-2 gap-15 lg:gap-20 items-start">
             <div>
               <div className="eyebrow text-brass mb-6">{t.formEyebrow}</div>
-              <h2 className="font-serif font-light leading-none tracking-tight text-5xl mb-6">
+              <h2 className="font-serif font-light leading-none tracking-tight text-3xl sm:text-4xl lg:text-5xl mb-6">
                 {t.formTitle} <em className="italic font-normal text-brass">{t.formTitleHighlight}</em>
               </h2>
               <p className="text-base leading-relaxed opacity-80 mb-8">{t.formDesc}</p>

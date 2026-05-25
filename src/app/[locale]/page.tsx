@@ -31,7 +31,7 @@ export default async function HomePage({ params }: Props) {
       <Nav />
       <main>
         {/* HERO */}
-        <section className="relative min-h-screen flex items-center px-8 lg:px-15 pt-30 pb-20 overflow-hidden">
+        <section className="relative min-h-screen flex items-center px-5 sm:px-8 lg:px-15 pt-28 sm:pt-30 pb-20 overflow-hidden">
           <div className="absolute inset-0 z-0 overflow-hidden">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
@@ -42,9 +42,9 @@ export default async function HomePage({ params }: Props) {
             <div className="absolute inset-0 bg-gradient-to-b from-bg/40 via-bg/10 to-bg/70 z-10" />
           </div>
 
-          <div className="relative z-20 grid lg:grid-cols-2 gap-12 lg:gap-20 w-full max-w-[1400px] mx-auto items-end">
+          <div className="relative z-20 grid lg:grid-cols-2 gap-10 lg:gap-20 w-full max-w-[1400px] mx-auto items-end">
             <div>
-              <div className="eyebrow opacity-0 animate-fade-up [animation-delay:0.2s] mb-8">
+              <div className="eyebrow opacity-0 animate-fade-up [animation-delay:0.2s] mb-6 sm:mb-8 text-[10px] sm:text-[11px]">
                 {t.eyebrow}
               </div>
               <h1 className="hero-title">
@@ -57,21 +57,31 @@ export default async function HomePage({ params }: Props) {
                 </span>
               </h1>
             </div>
-            <div className="flex flex-col gap-8 opacity-0 animate-fade-up [animation-delay:1s]">
-              <p className="text-base leading-relaxed text-ink-soft max-w-md">{t.heroDesc}</p>
-              <div className="flex flex-wrap gap-4">
-                <Link href={h("/produse")} className="btn btn-primary">
+            <div className="flex flex-col gap-6 sm:gap-8 opacity-0 animate-fade-up [animation-delay:1s]">
+              <p className="text-[15px] sm:text-base leading-relaxed text-ink-soft max-w-md">{t.heroDesc}</p>
+              <div className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4">
+                <Link href={h("/produse")} className="btn btn-primary justify-center sm:justify-start">
                   {tc.explore}
                   <Arrow />
                 </Link>
-                <Link href={h("/contacte")} className="btn btn-ghost">
+                <Link href={h("/contacte")} className="btn btn-ghost justify-center sm:justify-start">
                   {tc.visitShowroom}
                 </Link>
+              </div>
+
+              {/* Stats - vizibile si pe mobil, dar mai compacte */}
+              <div className="flex gap-8 sm:gap-12 lg:hidden mt-2">
+                {t.stats.map((s) => (
+                  <div key={s.label} className="flex flex-col">
+                    <span className="font-serif text-3xl font-normal text-brass-deep leading-none">{s.num}</span>
+                    <span className="text-[10px] tracking-[0.15em] uppercase text-ink-muted mt-2 whitespace-nowrap">{s.label}</span>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
 
-          <div className="hidden md:flex absolute bottom-20 left-8 lg:left-15 gap-12 lg:gap-15 z-20 opacity-0 animate-fade-up [animation-delay:1.4s]">
+          <div className="hidden lg:flex absolute bottom-20 left-8 lg:left-15 gap-12 lg:gap-15 z-20 opacity-0 animate-fade-up [animation-delay:1.4s]">
             {t.stats.map((s) => (
               <div key={s.label} className="flex flex-col">
                 <span className="font-serif text-4xl font-normal text-brass-deep leading-none">{s.num}</span>
@@ -80,7 +90,7 @@ export default async function HomePage({ params }: Props) {
             ))}
           </div>
 
-          <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 text-[10px] tracking-[0.3em] uppercase text-ink-muted z-20">
+          <div className="hidden sm:flex absolute bottom-10 left-1/2 -translate-x-1/2 flex-col items-center gap-3 text-[10px] tracking-[0.3em] uppercase text-ink-muted z-20">
             <span>{tc.scrollDown}</span>
             <div className="w-px h-10 bg-gradient-to-b from-brass to-transparent animate-scroll-line" />
           </div>
@@ -88,7 +98,7 @@ export default async function HomePage({ params }: Props) {
 
         {/* MANIFESTO */}
         <Reveal>
-          <section className="bg-bg-paper px-8 lg:px-15 py-32">
+          <section className="bg-bg-paper px-5 sm:px-8 lg:px-15 py-20 sm:py-32">
             <div className="max-w-[1100px] mx-auto">
               <p className="font-serif font-light leading-snug tracking-tight text-ink"
                 style={{ fontSize: "clamp(28px, 3.6vw, 48px)" }}>
@@ -113,7 +123,7 @@ export default async function HomePage({ params }: Props) {
         {/* FEATURED COLLECTION */}
         {heroProducts.length > 0 && (
           <Reveal>
-            <section className="px-8 lg:px-15 py-30 max-w-[1400px] mx-auto">
+            <section className="px-5 sm:px-8 lg:px-15 py-20 sm:py-30 max-w-[1400px] mx-auto">
               <div className="grid lg:grid-cols-[1fr_1.4fr] gap-8 lg:gap-20 mb-20 items-end">
                 <div>
                   <div className="eyebrow mb-6">{t.featuredEyebrow}</div>
@@ -135,7 +145,7 @@ export default async function HomePage({ params }: Props) {
 
         {/* SPLIT: Calitate & Estetica */}
         <Reveal>
-          <section className="grid lg:grid-cols-[1fr_1.2fr] gap-15 lg:gap-24 items-center px-8 lg:px-15 py-32 max-w-[1400px] mx-auto">
+          <section className="grid lg:grid-cols-[1fr_1.2fr] gap-15 lg:gap-24 items-center px-5 sm:px-8 lg:px-15 py-20 sm:py-32 max-w-[1400px] mx-auto">
             <div className="max-w-md">
               <div className="eyebrow mb-6">{t.philosophyEyebrow}</div>
               <h2 className="section-title">
@@ -165,7 +175,7 @@ export default async function HomePage({ params }: Props) {
             {[...Array(2)].map((_, i) => (
               <div key={i} className="flex gap-20 items-center">
                 {t.marquee.map((item) => (
-                  <span key={item} className="font-serif italic text-3xl font-light text-ink-soft flex items-center gap-20">
+                  <span key={item} className="font-serif italic text-xl sm:text-2xl lg:text-3xl font-light text-ink-soft flex items-center gap-12 sm:gap-20">
                     {item}
                     <span className="text-brass text-lg">✦</span>
                   </span>
@@ -177,8 +187,8 @@ export default async function HomePage({ params }: Props) {
 
         {/* TREI CONVINGERI */}
         <Reveal>
-          <section className="bg-bg-paper py-30 overflow-hidden">
-            <div className="text-center mb-20 px-8 lg:px-15">
+          <section className="bg-bg-paper py-20 sm:py-30 overflow-hidden">
+            <div className="text-center mb-12 sm:mb-20 px-5 sm:px-8 lg:px-15">
               <div className="eyebrow inline-flex justify-center mb-6">{t.beliefsEyebrow}</div>
               <h2 className="section-title">
                 {t.beliefsTitleA} <em>{t.beliefsTitleB}</em>
@@ -186,8 +196,8 @@ export default async function HomePage({ params }: Props) {
             </div>
             <div className="grid lg:grid-cols-3 gap-px bg-line border-y border-line">
               {t.beliefs.map((c, i) => (
-                <div key={i} className="bg-bg-paper px-10 py-15 flex flex-col gap-6 transition-colors hover:bg-bg">
-                  <span className="font-serif text-5xl font-light text-brass leading-none">{String(i + 1).padStart(2, "0")}</span>
+                <div key={i} className="bg-bg-paper px-6 sm:px-10 py-10 sm:py-15 flex flex-col gap-6 transition-colors hover:bg-bg">
+                  <span className="font-serif text-4xl sm:text-5xl font-light text-brass leading-none">{String(i + 1).padStart(2, "0")}</span>
                   <h3 className="font-serif text-2xl font-normal">{c.title}</h3>
                   <p className="text-[15px] leading-relaxed text-ink-soft">{c.body}</p>
                 </div>
@@ -199,7 +209,7 @@ export default async function HomePage({ params }: Props) {
         {/* EXPLOREAZA PRODUSELE */}
         {exploreProducts.length > 0 && (
           <Reveal>
-            <section className="px-8 lg:px-15 py-30 max-w-[1400px] mx-auto">
+            <section className="px-5 sm:px-8 lg:px-15 py-20 sm:py-30 max-w-[1400px] mx-auto">
               <div className="grid lg:grid-cols-[1fr_1.4fr] gap-8 lg:gap-20 mb-20 items-end">
                 <div>
                   <div className="eyebrow mb-6">{t.exploreEyebrow}</div>
@@ -228,7 +238,7 @@ export default async function HomePage({ params }: Props) {
 
         {/* CTA */}
         <Reveal>
-          <section className="px-8 lg:px-15 py-40 text-center relative overflow-hidden">
+          <section className="px-5 sm:px-8 lg:px-15 py-24 sm:py-40 text-center relative overflow-hidden">
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_50%,rgba(201,167,107,0.12),transparent_50%),radial-gradient(circle_at_80%_30%,rgba(140,106,58,0.08),transparent_60%)]" />
             <div className="relative z-10 max-w-3xl mx-auto">
               <div className="eyebrow inline-flex justify-center mb-8">{t.ctaEyebrow}</div>

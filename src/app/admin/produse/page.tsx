@@ -27,7 +27,7 @@ export default async function AdminProduseList() {
         </Link>
       </header>
 
-      <div className="bg-bg-paper rounded-2xl border border-line overflow-hidden">
+      <div className="bg-bg-paper rounded-2xl border border-line overflow-x-auto">
         <table className="w-full">
           <thead className="bg-bg-deep">
             <tr className="text-left text-[11px] tracking-[0.2em] uppercase text-ink-muted">

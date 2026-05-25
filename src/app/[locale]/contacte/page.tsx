@@ -21,7 +21,7 @@ export default async function ContactePage({ params }: Props) {
     <>
       <Nav />
       <main>
-        <section className="px-8 lg:px-15 pt-44 lg:pt-52 pb-20 max-w-[1400px] mx-auto grid lg:grid-cols-2 gap-12 lg:gap-24 items-start">
+        <section className="px-5 sm:px-8 lg:px-15 pt-44 lg:pt-52 pb-20 max-w-[1400px] mx-auto grid lg:grid-cols-2 gap-12 lg:gap-24 items-start">
           <div>
             <div className="eyebrow mb-6">{t.eyebrow}</div>
             <h1 className="page-title">
@@ -86,11 +86,11 @@ export default async function ContactePage({ params }: Props) {
           </div>
         </section>
 
-        <section className="bg-ink text-bg-paper px-8 lg:px-15 pt-44 pb-30 relative overflow-hidden">
+        <section className="bg-ink text-bg-paper px-5 sm:px-8 lg:px-15 pt-28 sm:pt-44 pb-20 sm:pb-30 relative overflow-hidden">
           <div className="relative z-10 max-w-3xl mx-auto">
             <div className="mb-15">
               <div className="eyebrow text-brass mb-8">{t.formEyebrow}</div>
-              <h2 className="font-serif font-light leading-none tracking-tight text-5xl mb-6">
+              <h2 className="font-serif font-light leading-none tracking-tight text-3xl sm:text-4xl lg:text-5xl mb-6">
                 {t.formTitleA} <em className="italic font-normal text-brass">{t.formTitleB}</em>
               </h2>
               <p className="opacity-70">{t.formDesc}</p>

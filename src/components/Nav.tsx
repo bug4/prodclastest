@@ -56,12 +56,12 @@ export function Nav() {
   return (
     <header
       className={clsx(
-        "fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-8 lg:px-15 transition-all duration-500",
+        "fixed top-0 left-0 right-0 z-50 flex items-center justify-between transition-all duration-500",
+        "px-5 sm:px-8 lg:px-15",
         scrolled
-          ? "py-4 bg-bg/85 backdrop-blur-xl border-b border-line-soft"
-          : "py-6"
+          ? "py-3 lg:py-4 bg-bg/85 backdrop-blur-xl border-b border-line-soft"
+          : "py-4 lg:py-6"
       )}
-      style={{ paddingLeft: "60px", paddingRight: "60px" }}
     >
       <Link href={localeHref(locale, "/")} className="flex items-center gap-3 group" aria-label="Prodclas">
         <Logo />

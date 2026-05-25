@@ -51,7 +51,7 @@ export default async function ProdusePage({ params, searchParams }: Props) {
     <>
       <Nav />
       <main>
-        <section className="px-8 lg:px-15 pt-40 lg:pt-48 pb-15 max-w-[1400px] mx-auto">
+        <section className="px-5 sm:px-8 lg:px-15 pt-40 lg:pt-48 pb-15 max-w-[1400px] mx-auto">
           <div className="eyebrow mb-4">{t.eyebrow} · {products.length} {t.models}</div>
           <h1 className="page-title">
             {t.titleA} <em>{t.titleB}</em>
@@ -59,36 +59,41 @@ export default async function ProdusePage({ params, searchParams }: Props) {
           <p className="mt-6 text-lg text-ink-soft max-w-xl leading-relaxed">{t.desc}</p>
         </section>
 
-        <div className="flex items-center gap-6 flex-wrap py-10 px-8 lg:px-15 border-y border-line-soft max-w-[1400px] mx-auto">
-          <Link href={buildQueryHref("toate", sp.sort)} className={`filter-pill ${activeCollection === "toate" ? "active" : ""}`}>
-            {t.filterAll}
-          </Link>
-          {collections.map((c) => (
-            <Link
-              key={c.id}
-              href={buildQueryHref(c.slug, sp.sort)}
-              className={`filter-pill ${activeCollection === c.slug ? "active" : ""}`}
-            >
-              {c.name}
+        <div className="py-6 sm:py-10 px-5 sm:px-8 lg:px-15 border-y border-line-soft max-w-[1400px] mx-auto">
+          {/* Filtre colectie - scroll orizontal pe mobil */}
+          <div className="flex items-center gap-2 sm:gap-6 overflow-x-auto scrollbar-hide -mx-5 px-5 sm:mx-0 sm:px-0 pb-2 sm:pb-0 sm:flex-wrap">
+            <Link href={buildQueryHref("toate", sp.sort)} className={`filter-pill whitespace-nowrap ${activeCollection === "toate" ? "active" : ""}`}>
+              {t.filterAll}
             </Link>
-          ))}
-          <div className="ml-auto flex gap-2 items-center">
-            <small className="text-xs text-ink-muted tracking-wide mr-2">{t.sortLabel}</small>
-            <Link href={buildQueryHref(activeCollection, undefined)} className={`filter-pill ${!sp.sort ? "active" : ""}`}>
+            {collections.map((c) => (
+              <Link
+                key={c.id}
+                href={buildQueryHref(c.slug, sp.sort)}
+                className={`filter-pill whitespace-nowrap ${activeCollection === c.slug ? "active" : ""}`}
+              >
+                {c.name}
+              </Link>
+            ))}
+          </div>
+
+          {/* Sortare - separat pe mobil, ml-auto pe desktop in aceeasi linie */}
+          <div className="flex items-center gap-2 mt-4 sm:mt-3 sm:justify-end overflow-x-auto scrollbar-hide -mx-5 px-5 sm:mx-0 sm:px-0">
+            <small className="text-xs text-ink-muted tracking-wide mr-2 whitespace-nowrap">{t.sortLabel}</small>
+            <Link href={buildQueryHref(activeCollection, undefined)} className={`filter-pill whitespace-nowrap ${!sp.sort ? "active" : ""}`}>
               {t.sortDefault}
             </Link>
-            <Link href={buildQueryHref(activeCollection, "pret-asc")} className={`filter-pill ${sp.sort === "pret-asc" ? "active" : ""}`}>
+            <Link href={buildQueryHref(activeCollection, "pret-asc")} className={`filter-pill whitespace-nowrap ${sp.sort === "pret-asc" ? "active" : ""}`}>
               {t.sortPriceAsc}
             </Link>
-            <Link href={buildQueryHref(activeCollection, "pret-desc")} className={`filter-pill ${sp.sort === "pret-desc" ? "active" : ""}`}>
+            <Link href={buildQueryHref(activeCollection, "pret-desc")} className={`filter-pill whitespace-nowrap ${sp.sort === "pret-desc" ? "active" : ""}`}>
               {t.sortPriceDesc}
             </Link>
           </div>
         </div>
 
-        <section className="px-8 lg:px-15 py-15 pb-30 max-w-[1400px] mx-auto">
+        <section className="px-5 sm:px-8 lg:px-15 py-10 sm:py-15 pb-20 sm:pb-30 max-w-[1400px] mx-auto">
           {products.length === 0 ? (
-            <div className="text-center py-30 text-ink-muted">{t.empty}</div>
+            <div className="text-center py-20 sm:py-30 text-ink-muted">{t.empty}</div>
           ) : (
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
               {products.map((p) => (
@@ -99,7 +104,7 @@ export default async function ProdusePage({ params, searchParams }: Props) {
         </section>
 
         <Reveal>
-          <section className="px-8 lg:px-15 py-40 text-center relative overflow-hidden">
+          <section className="px-5 sm:px-8 lg:px-15 py-24 sm:py-40 text-center relative overflow-hidden">
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_50%,rgba(201,167,107,0.12),transparent_50%),radial-gradient(circle_at_80%_30%,rgba(140,106,58,0.08),transparent_60%)]" />
             <div className="relative z-10 max-w-3xl mx-auto">
               <div className="eyebrow inline-flex justify-center mb-8">{t.ctaEyebrow}</div>

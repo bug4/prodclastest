@@ -30,7 +30,7 @@ export default async function PromotiiPage({ params }: Props) {
     <>
       <Nav />
       <main>
-        <section className="px-8 lg:px-15 pt-44 lg:pt-52 pb-25 max-w-[1400px] mx-auto text-center">
+        <section className="px-5 sm:px-8 lg:px-15 pt-44 lg:pt-52 pb-25 max-w-[1400px] mx-auto text-center">
           <div className="eyebrow inline-flex justify-center mb-10">{t.eyebrow}</div>
           <h1 className="page-title">
             {t.titleA} <em>{t.titleB}</em>
@@ -38,9 +38,9 @@ export default async function PromotiiPage({ params }: Props) {
           <p className="mt-8 text-lg text-ink-soft max-w-xl mx-auto leading-relaxed">{t.desc}</p>
         </section>
 
-        <section className="px-8 lg:px-15 pb-30 max-w-[1400px] mx-auto">
+        <section className="px-5 sm:px-8 lg:px-15 pb-20 sm:pb-30 max-w-[1400px] mx-auto">
           {promotions.length === 0 ? (
-            <div className="text-center py-30 text-ink-muted">{t.empty}</div>
+            <div className="text-center py-20 sm:py-30 text-ink-muted">{t.empty}</div>
           ) : (
             <div className="grid md:grid-cols-2 gap-10">
               {promotions.map((promo, i) => (
@@ -62,7 +62,7 @@ export default async function PromotiiPage({ params }: Props) {
                           {promo.discount_label}
                         </span>
                       )}
-                      <h3 className="font-serif font-light text-4xl leading-tight tracking-tight mb-3">
+                      <h3 className="font-serif font-light text-3xl sm:text-4xl leading-tight tracking-tight mb-3">
                         {promo.title}
                       </h3>
                       {promo.description && (
@@ -81,7 +81,7 @@ export default async function PromotiiPage({ params }: Props) {
         </section>
 
         <Reveal>
-          <section className="px-8 lg:px-15 py-40 text-center relative overflow-hidden">
+          <section className="px-5 sm:px-8 lg:px-15 py-24 sm:py-40 text-center relative overflow-hidden">
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_50%,rgba(201,167,107,0.12),transparent_50%),radial-gradient(circle_at_80%_30%,rgba(140,106,58,0.08),transparent_60%)]" />
             <div className="relative z-10 max-w-3xl mx-auto">
               <h2 className="font-serif font-light leading-none tracking-tight mb-8" style={{ fontSize: "clamp(40px, 6vw, 80px)" }}>
