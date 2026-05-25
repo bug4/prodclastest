@@ -120,8 +120,8 @@ export function Nav() {
           onClick={() => setOpen((o) => !o)}
           aria-label={t.menu}
         >
-          <span className={clsx("w-5.5 h-px bg-ink transition-transform duration-300", open && "rotate-45 translate-y-[5px]")} />
-          <span className={clsx("w-5.5 h-px bg-ink transition-transform duration-300", open && "-rotate-45 -translate-y-[3px]")} />
+          <span className={clsx("w-6 h-0.5 bg-ink rounded-full transition-transform duration-300", open && "rotate-45 translate-y-[8px]")} />
+          <span className={clsx("w-6 h-0.5 bg-ink rounded-full transition-transform duration-300", open && "-rotate-45 -translate-y-[0px]")} />
         </button>
       </div>
 

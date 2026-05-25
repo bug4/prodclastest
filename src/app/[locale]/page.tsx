@@ -164,7 +164,7 @@ export default async function HomePage({ params }: Props) {
               <img src={INTERIORS.kitchen} alt="" className="w-full aspect-[3/4] object-cover rounded-xl" />
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={INTERIORS.living} alt="" className="w-full aspect-[3/4] object-cover rounded-xl mt-15" />
-              <div className="absolute -bottom-8 -right-8 w-30 h-30 border border-brass/40 rounded-full -z-10" />
+              <div className="absolute -bottom-8 -right-8 w-32 h-32 border border-brass/40 rounded-full -z-10" />
             </div>
           </section>
         </Reveal>
