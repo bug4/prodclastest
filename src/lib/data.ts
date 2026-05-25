@@ -15,19 +15,39 @@ export async function getCollections(): Promise<Collection[]> {
   }
   return data ?? [];
 }
-
 export async function getProducts(opts?: {
   collectionSlug?: string;
   featured?: boolean;
   limit?: number;
+  sortByPrice?: "asc" | "desc";
 }): Promise<ProductWithCollection[]> {
   const supabase = await createClient();
+
+  // Daca filtram pe collection slug, gasim mai intai collection_id
+  let collectionId: string | undefined;
+  if (opts?.collectionSlug && opts.collectionSlug !== "toate") {
+    const { data: col } = await supabase
+      .from("collections")
+      .select("id")
+      .eq("slug", opts.collectionSlug)
+      .maybeSingle();
+    if (col) collectionId = col.id;
+    else return [];
+  }
+
   let query = supabase
     .from("products")
-    .select("*, collection:collections(name, slug)")
-    .order("sort_order");
+    .select("*, collection:collections(name, slug)");
 
   if (opts?.featured) query = query.eq("is_featured", true);
+  if (collectionId) query = query.eq("collection_id", collectionId);
+
+  if (opts?.sortByPrice) {
+    query = query.order("price_mdl", { ascending: opts.sortByPrice === "asc" });
+  } else {
+    query = query.order("sort_order");
+  }
+
   if (opts?.limit) query = query.limit(opts.limit);
 
   const { data, error } = await query;
@@ -36,11 +56,7 @@ export async function getProducts(opts?: {
     return [];
   }
 
-  let result = (data ?? []) as ProductWithCollection[];
-  if (opts?.collectionSlug && opts.collectionSlug !== "toate") {
-    result = result.filter((p) => p.collection?.slug === opts.collectionSlug);
-  }
-  return result;
+  return (data ?? []) as ProductWithCollection[];
 }
 
 export async function getProductBySlug(slug: string): Promise<ProductWithCollection | null> {

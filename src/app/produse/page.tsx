@@ -13,16 +13,18 @@ export const metadata = {
 export const revalidate = 60;
 
 type Props = {
-  searchParams: Promise<{ colectie?: string }>;
+  searchParams: Promise<{ colectie?: string; sort?: string }>;
 };
 
 export default async function ProdusePage({ searchParams }: Props) {
   const params = await searchParams;
   const activeCollection = params.colectie ?? "toate";
+  const sortByPrice =
+    params.sort === "pret-asc" ? "asc" : params.sort === "pret-desc" ? "desc" : undefined;
 
   const [collections, products] = await Promise.all([
     getCollections(),
-    getProducts({ collectionSlug: activeCollection }),
+    getProducts({ collectionSlug: activeCollection, sortByPrice }),
   ]);
 
   return (
@@ -42,13 +44,21 @@ export default async function ProdusePage({ searchParams }: Props) {
 
         {/* Filters */}
         <div className="flex items-center gap-6 flex-wrap py-10 px-8 lg:px-15 border-y border-line-soft max-w-[1400px] mx-auto">
-          <FilterLink slug="toate" label="Toate" active={activeCollection === "toate"} />
+          <FilterLink slug="toate" label="Toate" active={activeCollection === "toate"} sort={params.sort} />
           {collections.map((c) => (
-            <FilterLink key={c.id} slug={c.slug} label={c.name} active={activeCollection === c.slug} />
+            <FilterLink
+              key={c.id}
+              slug={c.slug}
+              label={c.name}
+              active={activeCollection === c.slug}
+              sort={params.sort}
+            />
           ))}
-          <div className="ml-auto flex gap-4 items-center">
-            <small className="text-xs text-ink-muted tracking-wide">Sortează după preț</small>
-            <button className="filter-pill">Selectați ▾</button>
+          <div className="ml-auto flex gap-2 items-center">
+            <small className="text-xs text-ink-muted tracking-wide mr-2">Sortează</small>
+            <SortLink label="Implicit" sortValue={undefined} current={params.sort} colectie={activeCollection} />
+            <SortLink label="Preț ↑" sortValue="pret-asc" current={params.sort} colectie={activeCollection} />
+            <SortLink label="Preț ↓" sortValue="pret-desc" current={params.sort} colectie={activeCollection} />
           </div>
         </div>
 
@@ -95,10 +105,46 @@ export default async function ProdusePage({ searchParams }: Props) {
   );
 }
 
-function FilterLink({ slug, label, active }: { slug: string; label: string; active: boolean }) {
-  const href = slug === "toate" ? "/produse" : `/produse?colectie=${slug}`;
+function buildHref(colectie: string, sort?: string) {
+  const params = new URLSearchParams();
+  if (colectie && colectie !== "toate") params.set("colectie", colectie);
+  if (sort) params.set("sort", sort);
+  const qs = params.toString();
+  return qs ? `/produse?${qs}` : "/produse";
+}
+
+function FilterLink({
+  slug,
+  label,
+  active,
+  sort,
+}: {
+  slug: string;
+  label: string;
+  active: boolean;
+  sort?: string;
+}) {
   return (
-    <Link href={href} className={`filter-pill ${active ? "active" : ""}`}>
+    <Link href={buildHref(slug, sort)} className={`filter-pill ${active ? "active" : ""}`}>
+      {label}
+    </Link>
+  );
+}
+
+function SortLink({
+  label,
+  sortValue,
+  current,
+  colectie,
+}: {
+  label: string;
+  sortValue?: string;
+  current?: string;
+  colectie: string;
+}) {
+  const isActive = current === sortValue || (!current && !sortValue);
+  return (
+    <Link href={buildHref(colectie, sortValue)} className={`filter-pill ${isActive ? "active" : ""}`}>
       {label}
     </Link>
   );
