@@ -113,3 +113,9 @@
   opacity: 1;
   transform: translateY(0);
 }
+
+/* Toast progress bar - durata dinamica setata prin style inline */
+@keyframes toast-progress {
+  from { width: 100%; }
+  to { width: 0%; }
+}

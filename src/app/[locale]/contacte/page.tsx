@@ -86,11 +86,11 @@ export default async function ContactePage({ params }: Props) {
           </div>
         </section>
 
-        <section className="bg-ink text-bg-paper px-8 lg:px-15 py-30 relative overflow-hidden">
+        <section className="bg-ink text-bg-paper px-8 lg:px-15 pt-44 pb-30 relative overflow-hidden">
           <div className="relative z-10 max-w-3xl mx-auto">
             <div className="mb-15">
-              <div className="eyebrow text-brass mb-6">{t.formEyebrow}</div>
-              <h2 className="font-serif font-light leading-none tracking-tight text-5xl mb-4">
+              <div className="eyebrow text-brass mb-8">{t.formEyebrow}</div>
+              <h2 className="font-serif font-light leading-none tracking-tight text-5xl mb-6">
                 {t.formTitleA} <em className="italic font-normal text-brass">{t.formTitleB}</em>
               </h2>
               <p className="opacity-70">{t.formDesc}</p>

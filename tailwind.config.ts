@@ -38,6 +38,7 @@ const config: Config = {
         "scroll-line": "scrollLine 2s ease-in-out infinite",
         marquee: "marqueeScroll 40s linear infinite",
         "hero-zoom": "heroZoom 20s cubic-bezier(0.16, 1, 0.3, 1) infinite alternate",
+        "slide-in-toast": "slideInToast 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards",
       },
       keyframes: {
         fadeUp: {
@@ -55,6 +56,10 @@ const config: Config = {
         heroZoom: {
           from: { transform: "scale(1)" },
           to: { transform: "scale(1.08)" },
+        },
+        slideInToast: {
+          from: { opacity: "0", transform: "translateX(120%)" },
+          to: { opacity: "1", transform: "translateX(0)" },
         },
       },
     },
