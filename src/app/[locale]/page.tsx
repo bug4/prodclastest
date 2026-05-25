@@ -71,11 +71,11 @@ export default async function HomePage({ params }: Props) {
             </div>
           </div>
 
-          <div className="hidden md:flex absolute bottom-20 left-8 lg:left-15 gap-15 z-20 opacity-0 animate-fade-up [animation-delay:1.4s]">
+          <div className="hidden md:flex absolute bottom-20 left-8 lg:left-15 gap-12 lg:gap-15 z-20 opacity-0 animate-fade-up [animation-delay:1.4s]">
             {t.stats.map((s) => (
               <div key={s.label} className="flex flex-col">
                 <span className="font-serif text-4xl font-normal text-brass-deep leading-none">{s.num}</span>
-                <span className="text-[11px] tracking-[0.2em] uppercase text-ink-muted mt-2">{s.label}</span>
+                <span className="text-[11px] tracking-[0.2em] uppercase text-ink-muted mt-2 whitespace-nowrap">{s.label}</span>
               </div>
             ))}
           </div>

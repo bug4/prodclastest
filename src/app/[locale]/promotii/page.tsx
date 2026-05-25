@@ -31,11 +31,11 @@ export default async function PromotiiPage({ params }: Props) {
       <Nav />
       <main>
         <section className="px-8 lg:px-15 pt-44 lg:pt-52 pb-25 max-w-[1400px] mx-auto text-center">
-          <div className="eyebrow inline-flex justify-center mb-6">{t.eyebrow}</div>
+          <div className="eyebrow inline-flex justify-center mb-10">{t.eyebrow}</div>
           <h1 className="page-title">
             {t.titleA} <em>{t.titleB}</em>
           </h1>
-          <p className="mt-6 text-lg text-ink-soft max-w-xl mx-auto leading-relaxed">{t.desc}</p>
+          <p className="mt-8 text-lg text-ink-soft max-w-xl mx-auto leading-relaxed">{t.desc}</p>
         </section>
 
         <section className="px-8 lg:px-15 pb-30 max-w-[1400px] mx-auto">

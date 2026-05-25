@@ -5,6 +5,15 @@ import { Logo } from "./Logo";
 import { useLocale, localeHref } from "@/lib/useLocale";
 import { getDict } from "@/lib/i18n";
 
+const SOCIALS = [
+  { name: "facebook", href: "https://www.facebook.com/share/1BA5f7agLs/", label: "Facebook" },
+  { name: "instagram", href: "https://www.instagram.com/prod_class/", label: "Instagram" },
+  { name: "tiktok", href: "https://www.tiktok.com/@prodclass", label: "TikTok" },
+];
+
+const PHONE_DISPLAY = "+373 600 24 144";
+const PHONE_HREF = "tel:+37360024144";
+
 export function Footer() {
   const locale = useLocale();
   const tNav = getDict(locale).nav;
@@ -19,14 +28,16 @@ export function Footer() {
           </div>
           <p className="text-sm leading-relaxed opacity-70 my-6 max-w-xs">{t.tagline}</p>
           <div className="flex gap-3">
-            {["facebook", "instagram", "tiktok"].map((s) => (
+            {SOCIALS.map((s) => (
               <a
-                key={s}
-                href="#"
-                aria-label={s}
+                key={s.name}
+                href={s.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={s.label}
                 className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center transition-all duration-300 hover:bg-brass hover:border-brass hover:text-ink"
               >
-                <SocialIcon name={s} />
+                <SocialIcon name={s.name} />
               </a>
             ))}
           </div>
@@ -49,8 +60,8 @@ export function Footer() {
 
         <div className="flex flex-col gap-3.5">
           <h4 className="text-[11px] tracking-[0.25em] uppercase text-brass mb-3">{t.contactHeader}</h4>
-          <a href="tel:+37368425507" className="text-sm opacity-75 hover:opacity-100 hover:text-brass transition-all">
-            +373 68 425 507
+          <a href={PHONE_HREF} className="text-sm opacity-75 hover:opacity-100 hover:text-brass transition-all">
+            {PHONE_DISPLAY}
           </a>
           <a href="mailto:contact@prodclas.md" className="text-sm opacity-75 hover:opacity-100 hover:text-brass transition-all">
             contact@prodclas.md
