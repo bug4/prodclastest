@@ -29,6 +29,18 @@ export function AdminSidebar({ userEmail, signOutForm }: Props) {
     setMobileOpen(false);
   }, [pathname]);
 
+  // Blocheaza scroll-ul pe body cand drawer-ul mobile e deschis
+  useEffect(() => {
+    if (mobileOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [mobileOpen]);
+
   return (
     <>
       {/* Topbar mobile */}

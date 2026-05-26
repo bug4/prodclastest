@@ -29,6 +29,18 @@ export function Nav() {
     setLangOpen(false);
   }, [pathname]);
 
+  // Blocheaza scroll-ul pe body cand meniul mobile e deschis
+  useEffect(() => {
+    if (open) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [open]);
+
   const links = [
     { internal: "/", label: t.home },
     { internal: "/produse", label: t.products },
@@ -126,7 +138,7 @@ export function Nav() {
       </div>
 
       {open && (
-        <div className="lg:hidden fixed inset-0 bg-bg z-40 flex flex-col items-center justify-center gap-8 pt-20">
+        <div className="lg:hidden fixed inset-0 bg-bg z-40 flex flex-col items-center justify-center gap-8 pt-20 overscroll-contain touch-none">
           {links.map((link) => (
             <Link
               key={link.internal}
