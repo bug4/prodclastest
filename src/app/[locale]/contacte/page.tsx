@@ -48,8 +48,8 @@ export default async function ContactePage({ params }: Props) {
                   </svg>
                 }
                 label={t.email}
-                value="contact@prodclas.md"
-                href="mailto:contact@prodclas.md"
+                value="Infoprodclas@gmail.com"
+                href="mailto:Infoprodclas@gmail.com"
               />
               <ContactBlock
                 icon={
