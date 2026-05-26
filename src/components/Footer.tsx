@@ -11,8 +11,9 @@ const SOCIALS = [
   { name: "tiktok", href: "https://www.tiktok.com/@prodclass", label: "TikTok" },
 ];
 
-const PHONE_DISPLAY = "+373 600 24 144";
-const PHONE_HREF = "tel:+37360024144";
+const PHONE_DISPLAY = "+373 62 064 646";
+const PHONE_HREF = "tel:+37362064646";
+const ADDRESS_DISPLAY = "Str. Iurii Gagarin 30, Vatra";
 
 export function Footer() {
   const locale = useLocale();
@@ -66,7 +67,7 @@ export function Footer() {
           <a href="mailto:contact@prodclas.md" className="text-sm opacity-75 hover:opacity-100 hover:text-brass transition-all break-all">
             contact@prodclas.md
           </a>
-          <span className="text-sm opacity-75">Str. Alba Iulia 22, Chișinău</span>
+          <span className="text-sm opacity-75">{ADDRESS_DISPLAY}</span>
         </div>
 
         <div className="flex flex-col gap-3 sm:col-span-2 lg:col-span-1">

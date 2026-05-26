@@ -37,8 +37,8 @@ export default async function ContactePage({ params }: Props) {
                   </svg>
                 }
                 label={t.phone}
-                value="+373 600 24 144"
-                href="tel:+37360024144"
+                value="+373 62 064 646"
+                href="tel:+37362064646"
               />
               <ContactBlock
                 icon={
