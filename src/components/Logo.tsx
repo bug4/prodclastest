@@ -2,14 +2,15 @@ import Link from "next/link";
 
 type Props = {
   variant?: "default" | "light";
+  href?: string;
 };
 
-export function Logo({ variant = "default" }: Props) {
+export function Logo({ variant = "default", href = "/" }: Props) {
   const textColor = variant === "light" ? "text-bg-paper" : "text-ink";
   const subColor = variant === "light" ? "text-brass" : "text-brass-deep";
 
   return (
-    <Link href="/" className="flex items-center gap-2 sm:gap-3 group" aria-label="Prodclas">
+    <Link href={href} className="flex items-center gap-2 sm:gap-3 group" aria-label="Prodclas">
       <svg className="w-8 h-8 sm:w-9 sm:h-9 flex-shrink-0" viewBox="0 0 40 40" aria-hidden="true">
         <defs>
           <linearGradient id="logoGrad" x1="0" y1="0" x2="1" y2="1">
