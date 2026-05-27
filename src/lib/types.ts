@@ -74,3 +74,21 @@ export type ContactSubmission = {
   is_read: boolean;
   created_at: string;
 };
+
+export type WorkCategory = "lavoare" | "blaturi";
+
+export type Work = {
+  id: string;
+  slug: string;
+  title: string;
+  category: WorkCategory;
+  subtitle: string | null;
+  description: string | null;
+  cover_image_url: string | null;
+  gallery_images: string[];
+  info: Record<string, string> | null;
+  is_published: boolean;
+  sort_order: number;
+  created_at: string;
+  updated_at: string;
+};

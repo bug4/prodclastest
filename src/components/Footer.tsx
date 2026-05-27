@@ -49,6 +49,7 @@ export function Footer() {
           {[
             { internal: "/", label: tNav.home },
             { internal: "/produse", label: tNav.products },
+            { internal: "/lucrari", label: tNav.works },
             { internal: "/promotii", label: tNav.promotions },
             { internal: "/arhitecti", label: tNav.architects },
             { internal: "/contacte", label: tNav.contact },
@@ -64,8 +65,8 @@ export function Footer() {
           <a href={PHONE_HREF} className="text-sm opacity-75 hover:opacity-100 hover:text-brass transition-all">
             {PHONE_DISPLAY}
           </a>
-          <a href="mailto:Infoprodclas@gmail.com" className="text-sm opacity-75 hover:opacity-100 hover:text-brass transition-all break-all">
-            Infoprodclas@gmail.com
+          <a href="mailto:contact@prodclas.md" className="text-sm opacity-75 hover:opacity-100 hover:text-brass transition-all break-all">
+            contact@prodclas.md
           </a>
           <span className="text-sm opacity-75">{ADDRESS_DISPLAY}</span>
         </div>

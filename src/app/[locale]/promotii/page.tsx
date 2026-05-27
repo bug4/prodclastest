@@ -11,12 +11,6 @@ export const revalidate = 60;
 
 type Props = { params: Promise<{ locale: Locale }> };
 
-export async function generateMetadata({ params }: Props) {
-  const { locale } = await params;
-  const t = getDict(locale).promotions;
-  return { title: `${t.titleA} ${t.titleB}`, description: t.desc };
-}
-
 const FALLBACK_BGS = [INTERIORS.bath, INTERIORS.kitchen, INTERIORS.spa, INTERIORS.living];
 
 export default async function PromotiiPage({ params }: Props) {

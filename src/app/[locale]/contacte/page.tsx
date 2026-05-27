@@ -6,12 +6,6 @@ import { getDict, type Locale } from "@/lib/i18n";
 
 type Props = { params: Promise<{ locale: Locale }> };
 
-export async function generateMetadata({ params }: Props) {
-  const { locale } = await params;
-  const t = getDict(locale).contact;
-  return { title: `${t.titleA} ${t.titleB}`, description: t.desc };
-}
-
 export default async function ContactePage({ params }: Props) {
   const { locale } = await params;
   const t = getDict(locale).contact;
@@ -48,8 +42,8 @@ export default async function ContactePage({ params }: Props) {
                   </svg>
                 }
                 label={t.email}
-                value="Infoprodclas@gmail.com"
-                href="mailto:Infoprodclas@gmail.com"
+                value="contact@prodclas.md"
+                href="mailto:contact@prodclas.md"
               />
               <ContactBlock
                 icon={

@@ -16,6 +16,8 @@ export function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
+  const [worksOpen, setWorksOpen] = useState(false);
+  const [worksOpenMobile, setWorksOpenMobile] = useState(false);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 50);
@@ -27,9 +29,10 @@ export function Nav() {
   useEffect(() => {
     setOpen(false);
     setLangOpen(false);
+    setWorksOpen(false);
+    setWorksOpenMobile(false);
   }, [pathname]);
 
-  // Blocheaza scroll-ul pe body cand meniul mobile e deschis
   useEffect(() => {
     if (open) {
       document.body.style.overflow = "hidden";
@@ -41,15 +44,6 @@ export function Nav() {
     };
   }, [open]);
 
-  const links = [
-    { internal: "/", label: t.home },
-    { internal: "/produse", label: t.products },
-    { internal: "/promotii", label: t.promotions },
-    { internal: "/arhitecti", label: t.architects },
-    { internal: "/contacte", label: t.contact },
-  ];
-
-  // Pentru detectarea activa: scoatem prefixul de limba din pathname
   const pathWithoutLocale = (() => {
     const seg = pathname.split("/")[1];
     if (LOCALES.includes(seg as Locale)) {
@@ -65,6 +59,24 @@ export function Nav() {
     return localeHref(newLocale, pathWithoutLocale);
   };
 
+  // Link-uri simple
+  const simpleLinks = [
+    { internal: "/", label: t.home },
+    { internal: "/produse", label: t.products },
+  ];
+  const trailingLinks = [
+    { internal: "/promotii", label: t.promotions },
+    { internal: "/arhitecti", label: t.architects },
+    { internal: "/contacte", label: t.contact },
+  ];
+
+  // Subsectiuni Lucrari
+  const worksSubmenu = [
+    { internal: "/lucrari", label: t.worksAll },
+    { internal: "/lucrari?categorie=lavoare", label: t.worksWashbasins },
+    { internal: "/lucrari?categorie=blaturi", label: t.worksCountertops },
+  ];
+
   return (
     <header
       className={clsx(
@@ -77,8 +89,62 @@ export function Nav() {
     >
       <Logo href={localeHref(locale, "/")} />
 
-      <nav className="hidden lg:flex gap-10" aria-label="Principal">
-        {links.map((link) => (
+      <nav className="hidden lg:flex gap-10 items-center" aria-label="Principal">
+        {simpleLinks.map((link) => (
+          <Link
+            key={link.internal}
+            href={localeHref(locale, link.internal)}
+            className={clsx(
+              "relative text-[13px] font-medium tracking-[0.12em] uppercase py-1.5 transition-colors duration-300",
+              "after:absolute after:left-0 after:bottom-0 after:h-px after:bg-brass after:transition-all after:duration-500 after:ease-out",
+              isActive(link.internal)
+                ? "text-ink after:w-full"
+                : "text-ink-soft after:w-0 hover:text-ink hover:after:w-full"
+            )}
+          >
+            {link.label}
+          </Link>
+        ))}
+
+        {/* Dropdown Lucrari */}
+        <div
+          className="relative"
+          onMouseEnter={() => setWorksOpen(true)}
+          onMouseLeave={() => setWorksOpen(false)}
+        >
+          <Link
+            href={localeHref(locale, "/lucrari")}
+            className={clsx(
+              "relative flex items-center gap-1.5 text-[13px] font-medium tracking-[0.12em] uppercase py-1.5 transition-colors duration-300",
+              "after:absolute after:left-0 after:bottom-0 after:h-px after:bg-brass after:transition-all after:duration-500 after:ease-out",
+              isActive("/lucrari")
+                ? "text-ink after:w-full"
+                : "text-ink-soft after:w-0 hover:text-ink hover:after:w-full"
+            )}
+          >
+            {t.works}
+            <svg viewBox="0 0 12 12" width="8" height="8" aria-hidden="true" className={clsx("transition-transform duration-300", worksOpen && "rotate-180")}>
+              <path d="M2 4 L6 8 L10 4" fill="none" stroke="currentColor" strokeWidth="1.6" />
+            </svg>
+          </Link>
+          {worksOpen && (
+            <div className="absolute top-full left-1/2 -translate-x-1/2 pt-3">
+              <div className="bg-bg-paper border border-line rounded-2xl shadow-xl overflow-hidden min-w-[180px] py-2">
+                {worksSubmenu.map((s) => (
+                  <Link
+                    key={s.label}
+                    href={localeHref(locale, s.internal)}
+                    className="block px-5 py-3 text-[12px] tracking-[0.1em] uppercase text-ink-soft hover:text-ink hover:bg-bg-deep transition-colors"
+                  >
+                    {s.label}
+                  </Link>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+
+        {trailingLinks.map((link) => (
           <Link
             key={link.internal}
             href={localeHref(locale, link.internal)}
@@ -141,7 +207,6 @@ export function Nav() {
           style={{ backgroundColor: "#f6f1e9" }}
         >
           <div className="w-full h-full flex flex-col" style={{ backgroundColor: "#f6f1e9" }}>
-            {/* Top bar cu logo + X */}
             <div
               className="flex items-center justify-between px-5 py-4 border-b border-line-soft flex-shrink-0"
               style={{ backgroundColor: "#f6f1e9" }}
@@ -157,12 +222,11 @@ export function Nav() {
               </button>
             </div>
 
-            {/* Continut meniu centrat */}
             <div
-              className="flex-1 flex flex-col items-center justify-center gap-8 px-5"
+              className="flex-1 flex flex-col items-center justify-center gap-6 px-5 overflow-y-auto py-10"
               style={{ backgroundColor: "#f6f1e9" }}
             >
-              {links.map((link) => (
+              {simpleLinks.map((link) => (
                 <Link
                   key={link.internal}
                   href={localeHref(locale, link.internal)}
@@ -174,6 +238,49 @@ export function Nav() {
                   {link.label}
                 </Link>
               ))}
+
+              {/* Lucrari cu submenu pe mobil */}
+              <div className="flex flex-col items-center gap-3">
+                <button
+                  onClick={() => setWorksOpenMobile((o) => !o)}
+                  className={clsx(
+                    "flex items-center gap-2 text-2xl font-serif tracking-tight",
+                    isActive("/lucrari") ? "text-brass-deep italic" : "text-ink"
+                  )}
+                >
+                  {t.works}
+                  <svg viewBox="0 0 12 12" width="14" height="14" aria-hidden="true" className={clsx("transition-transform", worksOpenMobile && "rotate-180")}>
+                    <path d="M2 4 L6 8 L10 4" fill="none" stroke="currentColor" strokeWidth="1.6" />
+                  </svg>
+                </button>
+                {worksOpenMobile && (
+                  <div className="flex flex-col items-center gap-3 mt-2">
+                    {worksSubmenu.map((s) => (
+                      <Link
+                        key={s.label}
+                        href={localeHref(locale, s.internal)}
+                        className="text-base text-ink-soft tracking-wide"
+                      >
+                        {s.label}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              {trailingLinks.map((link) => (
+                <Link
+                  key={link.internal}
+                  href={localeHref(locale, link.internal)}
+                  className={clsx(
+                    "text-2xl font-serif tracking-tight",
+                    isActive(link.internal) ? "text-brass-deep italic" : "text-ink"
+                  )}
+                >
+                  {link.label}
+                </Link>
+              ))}
+
               <div className="flex gap-4 mt-6 pt-6 border-t border-line w-32 justify-center">
                 {LOCALES.map((l) => (
                   <Link

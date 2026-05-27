@@ -14,15 +14,6 @@ type Props = {
   searchParams: Promise<{ colectie?: string; sort?: string }>;
 };
 
-export async function generateMetadata({ params }: Props) {
-  const { locale } = await params;
-  const t = getDict(locale).products;
-  return {
-    title: `${t.titleA} ${t.titleB}`,
-    description: t.desc,
-  };
-}
-
 export default async function ProdusePage({ params, searchParams }: Props) {
   const { locale } = await params;
   const sp = await searchParams;

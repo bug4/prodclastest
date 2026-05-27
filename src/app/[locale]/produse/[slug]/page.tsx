@@ -17,9 +17,9 @@ type Props = {
 export async function generateMetadata({ params }: Props) {
   const { slug } = await params;
   const product = await getProductBySlug(slug);
-  if (!product) return { title: "Not found" };
+  if (!product) return {};
   return {
-    title: product.name,
+    title: `${product.name} | Prodclas`,
     description: product.description ?? `${product.name} — ${product.collection?.name ?? "Premium tiles"}.`,
   };
 }

@@ -2,18 +2,40 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: {
-    default: "Prodclas — Maison de Ceramică",
-    template: "%s · Prodclas",
-  },
+  // Titlu STATIC - nu se schimba per pagina
+  title: "Prodclas | Gresie și faianță premium",
   description:
     "Furnizor premium de gresie și faianță în Republica Moldova. Colecții italiene, spaniole și braziliene, consultanță arhitecturală, livrare în toată țara.",
   metadataBase: new URL("https://prodclas.md"),
+  icons: {
+    icon: [
+      { url: "/favicon.svg", type: "image/svg+xml" },
+      { url: "/favicon.png", type: "image/png" },
+    ],
+    apple: "/apple-touch-icon.png",
+  },
   openGraph: {
-    title: "Prodclas — Maison de Ceramică",
-    description: "Gresie și faianță premium în Chișinău.",
+    title: "Prodclas | Gresie și faianță premium",
+    description:
+      "Furnizor premium de gresie și faianță în Republica Moldova. Colecții italiene, spaniole și braziliene.",
     type: "website",
     locale: "ro_MD",
+    url: "https://prodclas.md",
+    siteName: "Prodclas",
+    images: [
+      {
+        url: "/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Prodclas — Maison de Ceramică",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Prodclas | Gresie și faianță premium",
+    description: "Furnizor premium de gresie și faianță în Republica Moldova.",
+    images: ["/og-image.jpg"],
   },
 };
 
