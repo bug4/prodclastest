@@ -136,47 +136,58 @@ export function Nav() {
       </div>
 
       {open && (
-        <div className="lg:hidden fixed inset-0 z-[60] flex flex-col bg-bg overscroll-contain">
-          {/* Header propriu in meniu - cu logo si buton X */}
-          <div className="flex items-center justify-between px-5 py-4 border-b border-line-soft bg-bg">
-            <Logo href={localeHref(locale, "/")} />
-            <button
-              onClick={() => setOpen(false)}
-              className="flex flex-col gap-1.5 p-2"
-              aria-label="Inchide meniu"
+        <div
+          className="lg:hidden fixed inset-0 z-[60] overscroll-contain"
+          style={{ backgroundColor: "#f6f1e9" }}
+        >
+          <div className="w-full h-full flex flex-col" style={{ backgroundColor: "#f6f1e9" }}>
+            {/* Top bar cu logo + X */}
+            <div
+              className="flex items-center justify-between px-5 py-4 border-b border-line-soft flex-shrink-0"
+              style={{ backgroundColor: "#f6f1e9" }}
             >
-              <span className="w-6 h-0.5 bg-ink rounded-full rotate-45 translate-y-[4px]" />
-              <span className="w-6 h-0.5 bg-ink rounded-full -rotate-45 -translate-y-[4px]" />
-            </button>
-          </div>
-
-          {/* Continut meniu */}
-          <div className="flex-1 flex flex-col items-center justify-center gap-8 px-5">
-            {links.map((link) => (
-              <Link
-                key={link.internal}
-                href={localeHref(locale, link.internal)}
-                className={clsx(
-                  "text-2xl font-serif tracking-tight",
-                  isActive(link.internal) ? "text-brass-deep italic" : "text-ink"
-                )}
+              <Logo href={localeHref(locale, "/")} />
+              <button
+                onClick={() => setOpen(false)}
+                className="flex flex-col gap-1.5 p-2"
+                aria-label="Inchide meniu"
               >
-                {link.label}
-              </Link>
-            ))}
-            <div className="flex gap-4 mt-6 pt-6 border-t border-line w-32 justify-center">
-              {LOCALES.map((l) => (
+                <span className="w-6 h-0.5 bg-ink rounded-full rotate-45 translate-y-[4px]" />
+                <span className="w-6 h-0.5 bg-ink rounded-full -rotate-45 -translate-y-[4px]" />
+              </button>
+            </div>
+
+            {/* Continut meniu centrat */}
+            <div
+              className="flex-1 flex flex-col items-center justify-center gap-8 px-5"
+              style={{ backgroundColor: "#f6f1e9" }}
+            >
+              {links.map((link) => (
                 <Link
-                  key={l}
-                  href={switchLocaleHref(l)}
+                  key={link.internal}
+                  href={localeHref(locale, link.internal)}
                   className={clsx(
-                    "text-xs font-semibold tracking-[0.15em] px-3 py-1.5 rounded-full",
-                    l === locale ? "bg-ink text-bg-paper" : "border border-line"
+                    "text-2xl font-serif tracking-tight",
+                    isActive(link.internal) ? "text-brass-deep italic" : "text-ink"
                   )}
                 >
-                  {LOCALE_NAMES[l]}
+                  {link.label}
                 </Link>
               ))}
+              <div className="flex gap-4 mt-6 pt-6 border-t border-line w-32 justify-center">
+                {LOCALES.map((l) => (
+                  <Link
+                    key={l}
+                    href={switchLocaleHref(l)}
+                    className={clsx(
+                      "text-xs font-semibold tracking-[0.15em] px-3 py-1.5 rounded-full",
+                      l === locale ? "bg-ink text-bg-paper" : "border border-line"
+                    )}
+                  >
+                    {LOCALE_NAMES[l]}
+                  </Link>
+                ))}
+              </div>
             </div>
           </div>
         </div>
