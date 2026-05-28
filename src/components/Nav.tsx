@@ -78,16 +78,17 @@ export function Nav() {
   ];
 
   return (
-    <header
-      className={clsx(
-        "fixed top-0 left-0 right-0 z-50 flex items-center justify-between transition-all duration-500",
-        "px-5 sm:px-8 lg:px-15",
-        scrolled
-          ? "py-3 lg:py-4 bg-bg/85 backdrop-blur-xl border-b border-line-soft"
-          : "py-4 lg:py-6"
-      )}
-    >
-      <Logo href={localeHref(locale, "/")} />
+    <>
+      <header
+        className={clsx(
+          "fixed top-0 left-0 right-0 z-50 flex items-center justify-between transition-all duration-500",
+          "px-5 sm:px-8 lg:px-15",
+          scrolled
+            ? "py-3 lg:py-4 bg-bg/85 backdrop-blur-xl border-b border-line-soft"
+            : "py-4 lg:py-6"
+        )}
+      >
+        <Logo href={localeHref(locale, "/")} />
 
       <nav className="hidden lg:flex gap-10 items-center" aria-label="Principal">
         {simpleLinks.map((link) => (
@@ -199,14 +200,15 @@ export function Nav() {
           <span className={clsx("w-6 h-0.5 bg-ink rounded-full transition-transform duration-300", open && "rotate-45 translate-y-[8px]")} />
           <span className={clsx("w-6 h-0.5 bg-ink rounded-full transition-transform duration-300", open && "-rotate-45 -translate-y-[0px]")} />
         </button>
-      </div>
+        </div>
+      </header>
 
       {open && (
         <div
-          className="lg:hidden fixed inset-0 z-[60] overscroll-contain"
+          className="lg:hidden fixed inset-0 z-[100] overscroll-contain"
           style={{ backgroundColor: "#f6f1e9" }}
         >
-          <div className="w-full h-full flex flex-col" style={{ backgroundColor: "#f6f1e9" }}>
+          <div className="absolute inset-0 flex flex-col" style={{ backgroundColor: "#f6f1e9" }}>
             <div
               className="flex items-center justify-between px-5 py-4 border-b border-line-soft flex-shrink-0"
               style={{ backgroundColor: "#f6f1e9" }}
@@ -299,6 +301,6 @@ export function Nav() {
           </div>
         </div>
       )}
-    </header>
+    </>
   );
 }
