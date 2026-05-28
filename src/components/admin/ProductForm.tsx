@@ -85,7 +85,7 @@ export function ProductForm({ product, collections }: Props) {
             />
           </Field>
 
-          <Field label="Origine" htmlFor="origin" hint="Italia, Spania, Brazilia...">
+          <Field label="Origine" htmlFor="origin" hint="Italia, Spania...">
             <input
               id="origin"
               name="origin"

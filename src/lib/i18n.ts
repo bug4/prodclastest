@@ -23,7 +23,7 @@ export const dict = {
       worksWashbasins: "Lavoare",
       worksCountertops: "Blaturi",
       promotions: "Promoții",
-      architects: "Arhitecți",
+      architects: "Designeri",
       contact: "Contacte",
       menu: "Meniu",
     },
@@ -58,11 +58,11 @@ export const dict = {
       heroLine2a: "spun",
       heroLine2b: "povești.",
       heroDesc:
-        "O selecție atent curată de gresie și faianță importată din Italia, Spania și Brazilia. Pentru locuințe, hoteluri și spații comerciale care merită să dureze.",
+        "O selecție atent curată de gresie și faianță importată din Italia și Spania. Pentru locuințe, hoteluri și spații comerciale care merită să dureze.",
       stats: [
-        { num: "12+", label: "Ani experiență" },
-        { num: "240", label: "Modele în stoc" },
-        { num: "3", label: "Țări de proveniență" },
+        { num: "8+", label: "Ani experiență" },
+        { num: "16", label: "Modele în stoc" },
+        { num: "2", label: "Țări de proveniență" },
       ],
       manifestoEyebrow: "Viziunea Prodclas",
       manifestoText:
@@ -126,7 +126,7 @@ export const dict = {
       titleA: "Gresie și",
       titleB: "faianță",
       desc:
-        "Colecții italiene, spaniole și braziliene. Toate produsele sunt în stoc sau disponibile la comandă în 7–14 zile. Prețurile afișate sunt pe metru pătrat.",
+        "Colecții italiene și spaniole. Toate produsele sunt în stoc sau disponibile la comandă în 7–14 zile. Prețurile afișate sunt pe metru pătrat.",
       filterAll: "Toate",
       sortLabel: "Sortează",
       sortDefault: "Implicit",
@@ -137,7 +137,7 @@ export const dict = {
       ctaTitleA: "Comenzi",
       ctaTitleB: "speciale",
       ctaDesc:
-        "Lucrăm cu peste 40 de fabrici. Trimite-ne o referință vizuală sau descrierea texturii dorite — găsim soluția potrivită.",
+        "Lucrăm cu produse de standarde europene. Trimite-ne o referință vizuală sau descrierea texturii dorite — găsim soluția potrivită.",
       ctaButton: "Discută cu un consultant",
       // Detail
       detail: {
@@ -185,15 +185,14 @@ export const dict = {
     architects: {
       eyebrow: "Programul Prodclas Studio",
       titleA: "Pentru",
-      titleB: "arhitecți",
-      titleC: "și designeri",
+      titleB: "designeri",
+      titleC: "și arhitecți",
       desc:
-        "Construim relații lungi cu studiouri de arhitectură și designeri de interior. Mostre rapide, consultanță tehnică, prețuri preferențiale și acces la lansări înainte de catalog public.",
+        "Construim relații lungi cu studiouri de arhitectură și designeri de interior. Mostre rapide, consultanță tehnică și prețuri preferențiale.",
       benefits: [
         { title: "Răspuns în 24h", body: "Un consultant dedicat răspunde la cereri în maxim o zi lucrătoare." },
         { title: "Prețuri preferențiale", body: "Tarife dedicate pe toate colecțiile, valabile imediat după înregistrare." },
         { title: "Mostre gratuite", body: "Trimitem mostre fizice la birou sau la șantier, fără cost suplimentar." },
-        { title: "Acces lansări", body: "Cataloage tehnice și mostre din colecții noi cu 30 de zile înainte de lansare." },
       ],
       howEyebrow: "Cum lucrăm",
       howTitleA: "De la",
@@ -232,7 +231,7 @@ export const dict = {
         "Ai nevoie de ajutor în alegerea produselor potrivite? Vino în showroom sau scrie-ne — primești suport personalizat de la cineva care chiar înțelege materialele.",
       phone: "Telefon",
       email: "Email",
-      address: "Adresa",
+      address: "Adresa Showroomului",
       addressValue: "Str. Iurii Gagarin 30",
       city: "Vatra, Republica Moldova",
       schedule: "Program",
@@ -277,7 +276,7 @@ export const dict = {
       worksWashbasins: "Washbasins",
       worksCountertops: "Countertops",
       promotions: "Promotions",
-      architects: "Architects",
+      architects: "Designers",
       contact: "Contact",
       menu: "Menu",
     },
@@ -310,11 +309,11 @@ export const dict = {
       heroLine2a: "tell",
       heroLine2b: "stories.",
       heroDesc:
-        "A carefully curated selection of porcelain and ceramic tiles imported from Italy, Spain and Brazil. For homes, hotels and commercial spaces that deserve to last.",
+        "A carefully curated selection of porcelain and ceramic tiles imported from Italy and Spain. For homes, hotels and commercial spaces that deserve to last.",
       stats: [
-        { num: "12+", label: "Years of experience" },
-        { num: "240", label: "Models in stock" },
-        { num: "3", label: "Countries of origin" },
+        { num: "8+", label: "Years of experience" },
+        { num: "16", label: "Models in stock" },
+        { num: "2", label: "Countries of origin" },
       ],
       manifestoEyebrow: "Prodclas Vision",
       manifestoText:
@@ -377,7 +376,7 @@ export const dict = {
       titleA: "Porcelain &",
       titleB: "ceramic tiles",
       desc:
-        "Italian, Spanish and Brazilian collections. All products are in stock or available to order within 7–14 days. Prices shown are per square meter.",
+        "Italian and Spanish collections. All products are in stock or available to order within 7–14 days. Prices shown are per square meter.",
       filterAll: "All",
       sortLabel: "Sort",
       sortDefault: "Default",
@@ -388,7 +387,7 @@ export const dict = {
       ctaTitleA: "Custom",
       ctaTitleB: "orders",
       ctaDesc:
-        "We work with over 40 factories. Send us a visual reference or describe the texture you want — we'll find the right solution.",
+        "We work with products that meet European standards. Send us a visual reference or describe the texture you want — we'll find the right solution.",
       ctaButton: "Talk to a consultant",
       detail: {
         relatedEyebrow: "From the same collection",
@@ -432,15 +431,14 @@ export const dict = {
     architects: {
       eyebrow: "Prodclas Studio Program",
       titleA: "For",
-      titleB: "architects",
-      titleC: "and designers",
+      titleB: "designers",
+      titleC: "and architects",
       desc:
-        "We build long-term relationships with architecture studios and interior designers. Fast samples, technical consulting, preferential prices, and access to launches before the public catalog.",
+        "We build long-term relationships with architecture studios and interior designers. Fast samples, technical consulting and preferential prices.",
       benefits: [
         { title: "24h response", body: "A dedicated consultant answers requests within one business day." },
         { title: "Preferential prices", body: "Dedicated rates on all collections, valid immediately after registration." },
         { title: "Free samples", body: "We send physical samples to your office or construction site at no extra cost." },
-        { title: "Launch access", body: "Technical catalogs and samples from new collections 30 days before launch." },
       ],
       howEyebrow: "How we work",
       howTitleA: "From",
@@ -478,7 +476,7 @@ export const dict = {
         "Need help choosing the right products? Come to the showroom or write to us — get personalized support from someone who really understands materials.",
       phone: "Phone",
       email: "Email",
-      address: "Address",
+      address: "Showroom Address",
       addressValue: "Iurii Gagarin 30 St.",
       city: "Vatra, Republic of Moldova",
       schedule: "Hours",
@@ -522,7 +520,7 @@ export const dict = {
       worksWashbasins: "Раковины",
       worksCountertops: "Столешницы",
       promotions: "Акции",
-      architects: "Архитекторам",
+      architects: "Дизайнерам",
       contact: "Контакты",
       menu: "Меню",
     },
@@ -555,11 +553,11 @@ export const dict = {
       heroLine2a: "рассказывают",
       heroLine2b: "истории.",
       heroDesc:
-        "Тщательно подобранная коллекция керамогранита и керамической плитки из Италии, Испании и Бразилии. Для домов, отелей и коммерческих помещений, которые должны радовать долгие годы.",
+        "Тщательно подобранная коллекция керамогранита и керамической плитки из Италии и Испании. Для домов, отелей и коммерческих помещений, которые должны радовать долгие годы.",
       stats: [
-        { num: "12+", label: "Лет опыта" },
-        { num: "240", label: "Моделей в наличии" },
-        { num: "3", label: "Страны происхождения" },
+        { num: "8+", label: "Лет опыта" },
+        { num: "16", label: "Моделей в наличии" },
+        { num: "2", label: "Страны происхождения" },
       ],
       manifestoEyebrow: "Видение Prodclas",
       manifestoText:
@@ -622,7 +620,7 @@ export const dict = {
       titleA: "Керамогранит и",
       titleB: "плитка",
       desc:
-        "Итальянские, испанские и бразильские коллекции. Все товары в наличии или доступны под заказ в течение 7–14 дней. Цены указаны за квадратный метр.",
+        "Итальянские и испанские коллекции. Все товары в наличии или доступны под заказ в течение 7–14 дней. Цены указаны за квадратный метр.",
       filterAll: "Все",
       sortLabel: "Сортировка",
       sortDefault: "По умолчанию",
@@ -633,7 +631,7 @@ export const dict = {
       ctaTitleA: "Заказ",
       ctaTitleB: "под проект",
       ctaDesc:
-        "Мы работаем с более чем 40 фабриками. Пришлите визуальную референцию или опишите нужную текстуру — найдём решение.",
+        "Мы работаем с продукцией европейских стандартов. Пришлите визуальную референцию или опишите нужную текстуру — найдём решение.",
       ctaButton: "Связаться с консультантом",
       detail: {
         relatedEyebrow: "Из этой же коллекции",
@@ -677,15 +675,14 @@ export const dict = {
     architects: {
       eyebrow: "Программа Prodclas Studio",
       titleA: "Для",
-      titleB: "архитекторов",
-      titleC: "и дизайнеров",
+      titleB: "дизайнеров",
+      titleC: "и архитекторов",
       desc:
-        "Мы строим долгосрочные отношения с архитектурными студиями и дизайнерами интерьеров. Быстрые образцы, технические консультации, специальные цены и доступ к новинкам до публичного каталога.",
+        "Мы строим долгосрочные отношения с архитектурными студиями и дизайнерами интерьеров. Быстрые образцы, технические консультации и специальные цены.",
       benefits: [
         { title: "Ответ за 24 часа", body: "Персональный консультант отвечает на запросы в течение одного рабочего дня." },
         { title: "Специальные цены", body: "Эксклюзивные тарифы на все коллекции, действуют сразу после регистрации." },
         { title: "Бесплатные образцы", body: "Доставляем физические образцы в офис или на объект без доплат." },
-        { title: "Доступ к новинкам", body: "Технические каталоги и образцы новых коллекций за 30 дней до официального запуска." },
       ],
       howEyebrow: "Как мы работаем",
       howTitleA: "От",
@@ -723,7 +720,7 @@ export const dict = {
         "Нужна помощь в выборе подходящих товаров? Приезжайте в шоурум или напишите нам — получите персональную поддержку от того, кто действительно разбирается в материалах.",
       phone: "Телефон",
       email: "Email",
-      address: "Адрес",
+      address: "Адрес шоурума",
       addressValue: "Ул. Юрия Гагарина 30",
       city: "Ватра, Республика Молдова",
       schedule: "Часы работы",

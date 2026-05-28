@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   // Titlu STATIC - nu se schimba per pagina
   title: "Prodclas | Gresie și faianță premium",
   description:
-    "Furnizor premium de gresie și faianță în Republica Moldova. Colecții italiene, spaniole și braziliene, consultanță arhitecturală, livrare în toată țara.",
+    "Furnizor premium de gresie și faianță în Republica Moldova. Colecții italiene și spaniole, consultanță arhitecturală, livrare în toată țara.",
   metadataBase: new URL("https://prodclas.md"),
   icons: {
     icon: [
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Prodclas | Gresie și faianță premium",
     description:
-      "Furnizor premium de gresie și faianță în Republica Moldova. Colecții italiene, spaniole și braziliene.",
+      "Furnizor premium de gresie și faianță în Republica Moldova. Colecții italiene și spaniole.",
     type: "website",
     locale: "ro_MD",
     url: "https://prodclas.md",
