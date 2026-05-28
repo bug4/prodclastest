@@ -17,31 +17,19 @@ export async function getCollections(): Promise<Collection[]> {
 }
 
 export async function getProducts(opts?: {
-  collectionSlug?: string;
+  thickness?: string;
   featured?: boolean;
   limit?: number;
   sortByPrice?: "asc" | "desc";
 }): Promise<ProductWithCollection[]> {
   const supabase = await createClient();
 
-  // Daca filtram pe collection slug, gasim mai intai collection_id
-  let collectionId: string | undefined;
-  if (opts?.collectionSlug && opts.collectionSlug !== "toate") {
-    const { data: col } = await supabase
-      .from("collections")
-      .select("id")
-      .eq("slug", opts.collectionSlug)
-      .maybeSingle();
-    if (col) collectionId = col.id;
-    else return []; // colectie inexistenta
-  }
-
-  let query = supabase
-    .from("products")
-    .select("*, collection:collections(name, slug)");
+  let query = supabase.from("products").select("*");
 
   if (opts?.featured) query = query.eq("is_featured", true);
-  if (collectionId) query = query.eq("collection_id", collectionId);
+  if (opts?.thickness && opts.thickness !== "toate") {
+    query = query.eq("thickness", opts.thickness);
+  }
 
   // Sortare
   if (opts?.sortByPrice) {
@@ -58,21 +46,21 @@ export async function getProducts(opts?: {
     return [];
   }
 
-  return (data ?? []) as ProductWithCollection[];
+  return (data ?? []).map((p) => ({ ...p, collection: null })) as ProductWithCollection[];
 }
 
 export async function getProductBySlug(slug: string): Promise<ProductWithCollection | null> {
   const supabase = await createClient();
   const { data, error } = await supabase
     .from("products")
-    .select("*, collection:collections(name, slug)")
+    .select("*")
     .eq("slug", slug)
     .maybeSingle();
   if (error) {
     console.error("getProductBySlug", error);
     return null;
   }
-  return data as ProductWithCollection | null;
+  return data ? ({ ...data, collection: null } as ProductWithCollection) : null;
 }
 
 export async function getPromotions(): Promise<Promotion[]> {

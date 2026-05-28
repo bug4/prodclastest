@@ -9,7 +9,6 @@ import { Logo } from "@/components/Logo";
 const NAV = [
   { href: "/admin", label: "Dashboard", icon: "dashboard" },
   { href: "/admin/produse", label: "Produse", icon: "products" },
-  { href: "/admin/colectii", label: "Colecții", icon: "collections" },
   { href: "/admin/lucrari", label: "Lucrări", icon: "works" },
   { href: "/admin/promotii", label: "Promoții", icon: "promotions" },
   { href: "/admin/articole", label: "Articole", icon: "articles" },

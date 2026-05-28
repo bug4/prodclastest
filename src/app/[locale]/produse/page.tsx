@@ -3,7 +3,7 @@ import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 import { ProductCard } from "@/components/ProductCard";
 import { Reveal } from "@/components/Reveal";
-import { getCollections, getProducts } from "@/lib/data";
+import { getProducts } from "@/lib/data";
 import { getDict, type Locale } from "@/lib/i18n";
 import { localeHref } from "@/lib/localeHref";
 
@@ -11,13 +11,13 @@ export const revalidate = 60;
 
 type Props = {
   params: Promise<{ locale: Locale }>;
-  searchParams: Promise<{ colectie?: string; sort?: string }>;
+  searchParams: Promise<{ grosime?: string; sort?: string }>;
 };
 
 export default async function ProdusePage({ params, searchParams }: Props) {
   const { locale } = await params;
   const sp = await searchParams;
-  const activeCollection = sp.colectie ?? "toate";
+  const activeThickness = sp.grosime ?? "toate";
   const sortByPrice =
     sp.sort === "pret-asc" ? "asc" : sp.sort === "pret-desc" ? "desc" : undefined;
 
@@ -25,14 +25,17 @@ export default async function ProdusePage({ params, searchParams }: Props) {
   const tc = getDict(locale).common;
   const h = (path: string) => localeHref(locale, path);
 
-  const [collections, products] = await Promise.all([
-    getCollections(),
-    getProducts({ collectionSlug: activeCollection, sortByPrice }),
-  ]);
+  const products = await getProducts({ thickness: activeThickness, sortByPrice });
 
-  const buildQueryHref = (colectie: string, sort?: string) => {
+  const THICKNESS_OPTIONS = [
+    { value: "toate", label: t.filterAll },
+    { value: "6mm", label: "6mm" },
+    { value: "12mm", label: "12mm" },
+  ];
+
+  const buildQueryHref = (grosime: string, sort?: string) => {
     const qp = new URLSearchParams();
-    if (colectie && colectie !== "toate") qp.set("colectie", colectie);
+    if (grosime && grosime !== "toate") qp.set("grosime", grosime);
     if (sort) qp.set("sort", sort);
     const qs = qp.toString();
     return qs ? `${h("/produse")}?${qs}` : h("/produse");
@@ -51,32 +54,29 @@ export default async function ProdusePage({ params, searchParams }: Props) {
         </section>
 
         <div className="py-6 sm:py-10 px-5 sm:px-8 lg:px-15 border-y border-line-soft max-w-[1400px] mx-auto">
-          {/* Filtre colectie - scroll orizontal pe mobil */}
+          {/* Filtre grosime */}
           <div className="flex items-center gap-2 sm:gap-6 overflow-x-auto scrollbar-hide -mx-5 px-5 sm:mx-0 sm:px-0 pb-2 sm:pb-0 sm:flex-wrap">
-            <Link href={buildQueryHref("toate", sp.sort)} className={`filter-pill whitespace-nowrap ${activeCollection === "toate" ? "active" : ""}`}>
-              {t.filterAll}
-            </Link>
-            {collections.map((c) => (
+            {THICKNESS_OPTIONS.map((opt) => (
               <Link
-                key={c.id}
-                href={buildQueryHref(c.slug, sp.sort)}
-                className={`filter-pill whitespace-nowrap ${activeCollection === c.slug ? "active" : ""}`}
+                key={opt.value}
+                href={buildQueryHref(opt.value, sp.sort)}
+                className={`filter-pill whitespace-nowrap ${activeThickness === opt.value ? "active" : ""}`}
               >
-                {c.name}
+                {opt.label}
               </Link>
             ))}
           </div>
 
-          {/* Sortare - separat pe mobil, ml-auto pe desktop in aceeasi linie */}
+          {/* Sortare */}
           <div className="flex items-center gap-2 mt-4 sm:mt-3 sm:justify-end overflow-x-auto scrollbar-hide -mx-5 px-5 sm:mx-0 sm:px-0">
             <small className="text-xs text-ink-muted tracking-wide mr-2 whitespace-nowrap">{t.sortLabel}</small>
-            <Link href={buildQueryHref(activeCollection, undefined)} className={`filter-pill whitespace-nowrap ${!sp.sort ? "active" : ""}`}>
+            <Link href={buildQueryHref(activeThickness, undefined)} className={`filter-pill whitespace-nowrap ${!sp.sort ? "active" : ""}`}>
               {t.sortDefault}
             </Link>
-            <Link href={buildQueryHref(activeCollection, "pret-asc")} className={`filter-pill whitespace-nowrap ${sp.sort === "pret-asc" ? "active" : ""}`}>
+            <Link href={buildQueryHref(activeThickness, "pret-asc")} className={`filter-pill whitespace-nowrap ${sp.sort === "pret-asc" ? "active" : ""}`}>
               {t.sortPriceAsc}
             </Link>
-            <Link href={buildQueryHref(activeCollection, "pret-desc")} className={`filter-pill whitespace-nowrap ${sp.sort === "pret-desc" ? "active" : ""}`}>
+            <Link href={buildQueryHref(activeThickness, "pret-desc")} className={`filter-pill whitespace-nowrap ${sp.sort === "pret-desc" ? "active" : ""}`}>
               {t.sortPriceDesc}
             </Link>
           </div>

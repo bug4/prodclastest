@@ -9,6 +9,9 @@ const PALETTES: Record<string, [string, string, string, string]> = {
   mineral: ["#e8e2d4", "#d4cdbb", "#b6ad97", "#8c8474"],
   exotic: ["#cdbd97", "#a08a64", "#6c5a3a", "#3c2f1c"],
   terrazzo: ["#aca598", "#878072", "#5a544a", "#d4c4a8"],
+  // Grosimi - palette diferite ca placeholder-ele sa nu fie identice
+  "6mm": ["#fbf8f2", "#ece5d6", "#d8cfb8", "#a89b7d"],
+  "12mm": ["#e8e2d4", "#d4cdbb", "#b6ad97", "#8c8474"],
 };
 
 // Pseudo-random deterministic din string
@@ -21,8 +24,8 @@ function seededRandom(seed: string) {
   };
 }
 
-export function placeholderTile(collectionSlug: string | null, seed: string): string {
-  const palette = PALETTES[collectionSlug ?? "marble"] ?? PALETTES.marble;
+export function placeholderTile(key: string | null, seed: string): string {
+  const palette = PALETTES[key ?? "6mm"] ?? PALETTES["6mm"];
   const [c1, c2, c3, c4] = palette;
   const rnd = seededRandom(seed);
   const id = "g" + Math.abs(Math.floor(rnd() * 1e6));

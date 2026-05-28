@@ -1,15 +1,8 @@
-import { createClient } from "@/lib/supabase/server";
 import { ProductForm } from "@/components/admin/ProductForm";
 
 export const metadata = { title: "Produs nou" };
 
-export default async function ProdusNouPage() {
-  const supabase = await createClient();
-  const { data: collections } = await supabase
-    .from("collections")
-    .select("*")
-    .order("sort_order");
-
+export default function ProdusNouPage() {
   return (
     <>
       <header className="mb-10">
@@ -17,7 +10,7 @@ export default async function ProdusNouPage() {
         <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-light tracking-tight">Adaugă produs</h1>
       </header>
 
-      <ProductForm collections={collections ?? []} />
+      <ProductForm />
     </>
   );
 }

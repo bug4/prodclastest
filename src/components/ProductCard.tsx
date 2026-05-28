@@ -10,19 +10,28 @@ type Props = {
   locale?: Locale;
 };
 
+// Badge de grosime: bara verticala (sugereaza grosimea fizica) + text
+function ThicknessBadge({ thickness }: { thickness: string }) {
+  const is12 = thickness === "12mm";
+  return (
+    <span className="absolute top-4 left-4 z-10 inline-flex items-center gap-2 bg-bg-paper/90 backdrop-blur-md pl-2.5 pr-3 py-1.5 rounded-full">
+      <span className="flex items-end gap-[3px] h-3" aria-hidden="true">
+        <span className={`w-[2px] rounded-full bg-brass-deep ${is12 ? "h-3" : "h-1.5"}`} />
+        <span className={`w-[2px] rounded-full bg-brass-deep ${is12 ? "h-3" : "h-1.5"}`} />
+      </span>
+      <span className="text-[10px] font-semibold tracking-[0.12em] text-brass-deep">{thickness}</span>
+    </span>
+  );
+}
+
 export function ProductCard({ product, locale = DEFAULT_LOCALE }: Props) {
   const imgSrc =
-    product.image_url ??
-    placeholderTile(product.collection?.slug ?? null, product.slug);
+    product.image_url ?? placeholderTile(product.thickness ?? null, product.slug);
 
   return (
     <Link href={localeHref(locale, `/produse/${product.slug}`)} className="group block">
       <div className="relative aspect-[3/4] overflow-hidden rounded-xl bg-bg-deep mb-4">
-        {product.collection?.name && (
-          <span className="absolute top-4 left-4 z-10 text-[10px] font-semibold tracking-[0.15em] uppercase bg-bg-paper/90 backdrop-blur-md px-3 py-1.5 rounded-full text-brass-deep">
-            {product.collection.name}
-          </span>
-        )}
+        {product.thickness && <ThicknessBadge thickness={product.thickness} />}
 
         <Image
           src={imgSrc}

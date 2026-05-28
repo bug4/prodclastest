@@ -4,14 +4,13 @@ import { useState, useTransition } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { saveProduct, deleteProduct } from "@/app/admin/produse/actions";
-import type { Collection, Product } from "@/lib/types";
+import type { Product } from "@/lib/types";
 
 type Props = {
   product?: Product | null;
-  collections: Collection[];
 };
 
-export function ProductForm({ product, collections }: Props) {
+export function ProductForm({ product }: Props) {
   const [pending, startTransition] = useTransition();
   const [error, setError] = useState<string | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(product?.image_url ?? null);
@@ -57,19 +56,16 @@ export function ProductForm({ product, collections }: Props) {
             />
           </Field>
 
-          <Field label="Colecție" htmlFor="collection_id">
+          <Field label="Grosime *" htmlFor="thickness">
             <select
-              id="collection_id"
-              name="collection_id"
-              defaultValue={product?.collection_id ?? ""}
+              id="thickness"
+              name="thickness"
+              required
+              defaultValue={product?.thickness ?? "6mm"}
               className={inputStyle}
             >
-              <option value="">— fără colecție —</option>
-              {collections.map((c) => (
-                <option key={c.id} value={c.id}>
-                  {c.name}
-                </option>
-              ))}
+              <option value="6mm">6mm</option>
+              <option value="12mm">12mm</option>
             </select>
           </Field>
 

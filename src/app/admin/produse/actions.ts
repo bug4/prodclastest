@@ -7,7 +7,7 @@ import { redirect } from "next/navigation";
 export type ProductFormData = {
   slug: string;
   name: string;
-  collection_id: string | null;
+  thickness: string;
   price_mdl: number;
   origin: string | null;
   size: string | null;
@@ -22,7 +22,7 @@ function parseForm(formData: FormData): ProductFormData & { id?: string } {
     id: (formData.get("id") as string) || undefined,
     slug: String(formData.get("slug") ?? "").trim(),
     name: String(formData.get("name") ?? "").trim(),
-    collection_id: (formData.get("collection_id") as string) || null,
+    thickness: String(formData.get("thickness") ?? "6mm").trim(),
     price_mdl: Number(formData.get("price_mdl")) || 0,
     origin: String(formData.get("origin") ?? "").trim() || null,
     size: String(formData.get("size") ?? "").trim() || null,

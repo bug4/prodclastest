@@ -20,7 +20,7 @@ export async function generateMetadata({ params }: Props) {
   if (!product) return {};
   return {
     title: `${product.name} | Prodclas`,
-    description: product.description ?? `${product.name} — ${product.collection?.name ?? "Premium tiles"}.`,
+    description: product.description ?? `${product.name} — ${product.thickness ?? "ceramică"}.`,
   };
 }
 
@@ -36,11 +36,11 @@ export default async function ProductDetailPage({ params }: Props) {
   const h = (path: string) => localeHref(locale, path);
 
   const related = (
-    await getProducts({ collectionSlug: product.collection?.slug, limit: 5 })
+    await getProducts({ thickness: product.thickness, limit: 5 })
   ).filter((p) => p.id !== product.id).slice(0, 4);
 
   const imgSrc =
-    product.image_url ?? placeholderTile(product.collection?.slug ?? null, product.slug);
+    product.image_url ?? placeholderTile(product.thickness ?? null, product.slug);
 
   return (
     <>
@@ -57,9 +57,13 @@ export default async function ProductDetailPage({ params }: Props) {
 
           <div className="grid lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-20 items-start">
             <div className="relative aspect-[4/5] overflow-hidden rounded-2xl bg-bg-deep">
-              {product.collection?.name && (
-                <span className="absolute top-6 left-6 z-10 text-[11px] font-semibold tracking-[0.2em] uppercase bg-bg-paper/90 backdrop-blur-md px-4 py-2 rounded-full text-brass-deep">
-                  {product.collection.name}
+              {product.thickness && (
+                <span className="absolute top-6 left-6 z-10 inline-flex items-center gap-2 bg-bg-paper/90 backdrop-blur-md pl-3 pr-4 py-2 rounded-full">
+                  <span className="flex items-end gap-[3px] h-4" aria-hidden="true">
+                    <span className={`w-[2.5px] rounded-full bg-brass-deep ${product.thickness === "12mm" ? "h-4" : "h-2"}`} />
+                    <span className={`w-[2.5px] rounded-full bg-brass-deep ${product.thickness === "12mm" ? "h-4" : "h-2"}`} />
+                  </span>
+                  <span className="text-[11px] font-semibold tracking-[0.15em] text-brass-deep">{product.thickness}</span>
                 </span>
               )}
               <Image
@@ -74,7 +78,7 @@ export default async function ProductDetailPage({ params }: Props) {
             </div>
 
             <div className="lg:pt-8">
-              <div className="eyebrow mb-6">{product.collection?.name ?? "Tiles"}</div>
+              <div className="eyebrow mb-6">{product.thickness ?? "Ceramică"}</div>
               <h1 className="font-serif font-light leading-none tracking-tight mb-8" style={{ fontSize: "clamp(36px, 5vw, 64px)" }}>
                 {product.name}
               </h1>
@@ -86,6 +90,7 @@ export default async function ProductDetailPage({ params }: Props) {
               <dl className="grid grid-cols-2 gap-6 border-y border-line py-8 mb-10">
                 {product.origin && <SpecItem label={tc.origin} value={product.origin} />}
                 {product.size && <SpecItem label={tc.format} value={`${product.size} cm`} />}
+                {product.thickness && <SpecItem label={tc.thickness} value={product.thickness} />}
                 {product.finish && <SpecItem label={tc.finish} value={product.finish} />}
                 <SpecItem label={tc.stock} value={product.in_stock ? tc.inStock : tc.onOrder} />
               </dl>
