@@ -1,9 +1,9 @@
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 import { ProductCard } from "@/components/ProductCard";
+import { ProductGallery } from "@/components/ProductGallery";
 import { Reveal } from "@/components/Reveal";
 import { getProductBySlug, getProducts } from "@/lib/data";
 import { placeholderTile } from "@/lib/placeholder";
@@ -39,8 +39,28 @@ export default async function ProductDetailPage({ params }: Props) {
     await getProducts({ thickness: product.thickness, limit: 5 })
   ).filter((p) => p.id !== product.id).slice(0, 4);
 
-  const imgSrc =
-    product.image_url ?? placeholderTile(product.thickness ?? null, product.slug);
+  // Construiesc array-ul de imagini: cover + gallery (deduplicate)
+  const allImages: string[] = [];
+  if (product.image_url) allImages.push(product.image_url);
+  if (Array.isArray(product.gallery_images)) {
+    product.gallery_images.forEach((img) => {
+      if (img && !allImages.includes(img)) allImages.push(img);
+    });
+  }
+  if (allImages.length === 0) {
+    allImages.push(placeholderTile(product.thickness ?? null, product.slug));
+  }
+
+  // Badge grosime (JSX, pasat ca prop la ProductGallery)
+  const thicknessBadge = product.thickness ? (
+    <span className="absolute top-6 left-6 z-20 inline-flex items-center gap-2 bg-bg-paper/90 backdrop-blur-md pl-3 pr-4 py-2 rounded-full">
+      <span className="flex items-end gap-[3px] h-4" aria-hidden="true">
+        <span className={`w-[2.5px] rounded-full bg-brass-deep ${product.thickness === "12mm" ? "h-4" : "h-2"}`} />
+        <span className={`w-[2.5px] rounded-full bg-brass-deep ${product.thickness === "12mm" ? "h-4" : "h-2"}`} />
+      </span>
+      <span className="text-[11px] font-semibold tracking-[0.15em] text-brass-deep">{product.thickness}</span>
+    </span>
+  ) : null;
 
   return (
     <>
@@ -56,26 +76,15 @@ export default async function ProductDetailPage({ params }: Props) {
           </nav>
 
           <div className="grid lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-20 items-start">
-            <div className="relative aspect-[4/5] overflow-hidden rounded-2xl bg-bg-deep">
-              {product.thickness && (
-                <span className="absolute top-6 left-6 z-10 inline-flex items-center gap-2 bg-bg-paper/90 backdrop-blur-md pl-3 pr-4 py-2 rounded-full">
-                  <span className="flex items-end gap-[3px] h-4" aria-hidden="true">
-                    <span className={`w-[2.5px] rounded-full bg-brass-deep ${product.thickness === "12mm" ? "h-4" : "h-2"}`} />
-                    <span className={`w-[2.5px] rounded-full bg-brass-deep ${product.thickness === "12mm" ? "h-4" : "h-2"}`} />
-                  </span>
-                  <span className="text-[11px] font-semibold tracking-[0.15em] text-brass-deep">{product.thickness}</span>
-                </span>
-              )}
-              <Image
-                src={imgSrc}
-                alt={product.name}
-                fill
-                className="object-cover"
-                unoptimized={imgSrc.startsWith("data:")}
-                priority
-                sizes="(max-width: 1024px) 100vw, 50vw"
-              />
-            </div>
+            <ProductGallery
+              images={allImages}
+              alt={product.name}
+              thicknessBadge={thicknessBadge}
+              zoomLabel={tc.zoomImage}
+              prevLabel={tc.prevImage}
+              nextLabel={tc.nextImage}
+              closeLabel={tc.closeImage}
+            />
 
             <div className="lg:pt-8">
               <div className="eyebrow mb-6">{product.thickness ?? "Ceramică"}</div>

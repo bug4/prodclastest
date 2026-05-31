@@ -14,12 +14,34 @@ export function ProductForm({ product }: Props) {
   const [pending, startTransition] = useTransition();
   const [error, setError] = useState<string | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(product?.image_url ?? null);
+  const [gallery, setGallery] = useState<string[]>(product?.gallery_images ?? []);
+  const [newGalleryPreviews, setNewGalleryPreviews] = useState<string[]>([]);
+
+  const moveGallery = (idx: number, dir: -1 | 1) => {
+    const newIdx = idx + dir;
+    if (newIdx < 0 || newIdx >= gallery.length) return;
+    setGallery((g) => {
+      const copy = [...g];
+      [copy[idx], copy[newIdx]] = [copy[newIdx], copy[idx]];
+      return copy;
+    });
+  };
+
+  const removeGalleryImage = (idx: number) => {
+    setGallery((g) => g.filter((_, i) => i !== idx));
+  };
+
+  const removeNewPreview = (idx: number) => {
+    setNewGalleryPreviews((g) => g.filter((_, i) => i !== idx));
+  };
 
   return (
     <form
       onSubmit={(e) => {
         e.preventDefault();
         const fd = new FormData(e.currentTarget);
+        // Inject gallery existenta ca JSON string (cu ordinea actualizata)
+        fd.set("existing_gallery", JSON.stringify(gallery));
         startTransition(async () => {
           const res = await saveProduct(fd);
           if (res && !res.ok) setError(res.message);
@@ -144,12 +166,12 @@ export function ProductForm({ product }: Props) {
         </div>
       </div>
 
-      {/* Imagine */}
+      {/* Imagine principala (cover) */}
       <div className="bg-bg-paper rounded-2xl p-5 sm:p-8 border border-line space-y-6">
         <div>
-          <h2 className="font-serif text-xl mb-2">Imagine produs</h2>
+          <h2 className="font-serif text-xl mb-2">Imagine principală (cover)</h2>
           <p className="text-sm text-ink-muted">
-            Recomandat: imagine pătrată sau 3:4, minim 800×800px, JPG/PNG sub 10MB.
+            Apare pe card în catalog. Recomandat: imagine pătrată sau 3:4, minim 800×800px.
             {product?.image_url && " Lasă gol ca să păstrezi imaginea curentă."}
           </p>
         </div>
@@ -180,6 +202,113 @@ export function ProductForm({ product }: Props) {
             />
           </div>
         </div>
+      </div>
+
+      {/* Galerie (imagini adiționale) */}
+      <div className="bg-bg-paper rounded-2xl p-5 sm:p-8 border border-line space-y-5">
+        <div>
+          <h2 className="font-serif text-xl mb-2">Galerie (imagini adiționale)</h2>
+          <p className="text-sm text-ink-muted">
+            Apar dedesubt pe pagina produsului (poze din ambient, detalii textură etc.). Poți selecta mai multe odată.
+            Folosește săgețile pentru a reordona.
+          </p>
+        </div>
+
+        {/* Galerie existenta cu reordonare */}
+        {gallery.length > 0 && (
+          <div className="space-y-2">
+            <div className="text-[11px] tracking-[0.2em] uppercase text-ink-muted">
+              Imagini salvate ({gallery.length})
+            </div>
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+              {gallery.map((url, idx) => (
+                <div key={url} className="relative aspect-square rounded-lg overflow-hidden border border-line group">
+                  <Image src={url} alt="" fill className="object-cover" sizes="200px" />
+
+                  {/* Sageata sus/stanga */}
+                  <button
+                    type="button"
+                    onClick={() => moveGallery(idx, -1)}
+                    disabled={idx === 0}
+                    aria-label="Mută la stânga"
+                    className="absolute top-1 left-1 w-7 h-7 rounded-full bg-ink/80 text-bg-paper opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center disabled:opacity-30 disabled:cursor-not-allowed hover:bg-ink"
+                  >
+                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M15 18l-6-6 6-6" />
+                    </svg>
+                  </button>
+
+                  {/* Sageata jos/dreapta */}
+                  <button
+                    type="button"
+                    onClick={() => moveGallery(idx, 1)}
+                    disabled={idx === gallery.length - 1}
+                    aria-label="Mută la dreapta"
+                    className="absolute top-1 left-10 w-7 h-7 rounded-full bg-ink/80 text-bg-paper opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center disabled:opacity-30 disabled:cursor-not-allowed hover:bg-ink"
+                  >
+                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M9 18l6-6-6-6" />
+                    </svg>
+                  </button>
+
+                  {/* Sterge */}
+                  <button
+                    type="button"
+                    onClick={() => removeGalleryImage(idx)}
+                    aria-label="Șterge"
+                    className="absolute top-1 right-1 w-7 h-7 rounded-full bg-red-500 text-white opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-xs hover:bg-red-600"
+                  >
+                    ×
+                  </button>
+
+                  {/* Pozitie */}
+                  <div className="absolute bottom-1 right-1 px-2 py-0.5 rounded-full bg-ink/80 text-bg-paper text-[10px] font-semibold opacity-0 group-hover:opacity-100 transition-opacity">
+                    {idx + 1}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Previews pt poze noi */}
+        {newGalleryPreviews.length > 0 && (
+          <div className="space-y-2">
+            <div className="text-[11px] tracking-[0.2em] uppercase text-ink-muted">
+              Imagini noi de încărcat ({newGalleryPreviews.length})
+            </div>
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+              {newGalleryPreviews.map((url, idx) => (
+                <div key={idx} className="relative aspect-square rounded-lg overflow-hidden border-2 border-brass group">
+                  <Image src={url} alt="" fill className="object-cover" unoptimized sizes="200px" />
+                  <button
+                    type="button"
+                    onClick={() => removeNewPreview(idx)}
+                    aria-label="Șterge"
+                    className="absolute top-1 right-1 w-7 h-7 rounded-full bg-red-500 text-white opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-xs"
+                  >
+                    ×
+                  </button>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        <input
+          type="file"
+          name="gallery"
+          accept="image/*"
+          multiple
+          onChange={(e) => {
+            const files = e.target.files;
+            if (!files) return;
+            const previews: string[] = [];
+            Array.from(files).forEach((f) => previews.push(URL.createObjectURL(f)));
+            setNewGalleryPreviews((g) => [...g, ...previews]);
+          }}
+          className="block w-full text-sm file:mr-4 file:py-3 file:px-5 file:rounded-full file:border-0 file:bg-ink file:text-bg-paper file:cursor-pointer file:font-medium file:text-xs file:tracking-[0.15em] file:uppercase hover:file:bg-brass-deep"
+        />
       </div>
 
       {error && (

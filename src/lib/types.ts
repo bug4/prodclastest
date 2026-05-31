@@ -24,6 +24,7 @@ export type Product = {
   finish: string | null;
   description: string | null;
   image_url: string | null;
+  gallery_images: string[];
   in_stock: boolean;
   is_featured: boolean;
   sort_order: number;
