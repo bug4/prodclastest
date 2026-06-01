@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { Logo } from "./Logo";
+import { GoogleMap } from "./GoogleMap";
 import { useLocale, localeHref } from "@/lib/useLocale";
 import { getDict } from "@/lib/i18n";
 
@@ -88,6 +89,19 @@ export function Footer() {
             </button>
           </form>
         </div>
+      </div>
+
+      {/* Harta showroom */}
+      <div className="max-w-[1400px] mx-auto mt-10 sm:mt-12">
+        <div className="text-[11px] tracking-[0.25em] uppercase text-brass mb-3 sm:mb-4">
+          {t.mapLabel ?? "Showroom"}
+        </div>
+        <GoogleMap
+          className="h-[180px] sm:h-[220px] w-full"
+          rounded="rounded-xl"
+          title="Prodclas Showroom"
+          directionsLabel={t.mapDirectionsLabel ?? "Direcții"}
+        />
       </div>
 
       <div className="max-w-[1400px] mx-auto mt-8 sm:mt-10 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs opacity-50 text-center sm:text-left">

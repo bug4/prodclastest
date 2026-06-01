@@ -1,7 +1,7 @@
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 import { ContactForm } from "@/components/ContactForm";
-import { INTERIORS } from "@/lib/interiors";
+import { GoogleMap } from "@/components/GoogleMap";
 import { getDict, type Locale } from "@/lib/i18n";
 
 type Props = { params: Promise<{ locale: Locale }> };
@@ -15,7 +15,7 @@ export default async function ContactePage({ params }: Props) {
     <>
       <Nav />
       <main>
-        <section className="px-5 sm:px-8 lg:px-15 pt-44 lg:pt-52 pb-20 max-w-[1400px] mx-auto grid lg:grid-cols-2 gap-12 lg:gap-24 items-start">
+        <section className="px-5 sm:px-8 lg:px-15 pt-44 lg:pt-52 pb-20 max-w-[1400px] mx-auto grid lg:grid-cols-2 gap-12 lg:gap-24 lg:items-stretch">
           <div>
             <div className="eyebrow mb-6">{t.eyebrow}</div>
             <h1 className="page-title">
@@ -68,16 +68,11 @@ export default async function ContactePage({ params }: Props) {
             </div>
           </div>
 
-          <div className="relative h-[600px] hidden lg:block">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={INTERIORS.bath} alt="" className="absolute top-0 left-0 w-3/5 h-[55%] object-cover rounded-xl shadow-2xl" />
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={INTERIORS.kitchen} alt="" className="absolute top-[10%] right-0 w-[45%] h-[38%] object-cover rounded-xl shadow-2xl" />
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={INTERIORS.spa} alt="" className="absolute bottom-0 left-[15%] w-1/2 h-[45%] object-cover rounded-xl shadow-2xl" />
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={INTERIORS.living} alt="" className="absolute bottom-[8%] right-[5%] w-2/5 h-[35%] object-cover rounded-xl shadow-2xl" />
-          </div>
+          <GoogleMap
+            className="h-[400px] sm:h-[500px] lg:h-auto lg:min-h-[600px] w-full shadow-2xl"
+            title={`${t.address} Prodclas`}
+            directionsLabel={tc.getDirections}
+          />
         </section>
 
         <section className="bg-ink text-bg-paper px-5 sm:px-8 lg:px-15 pt-28 sm:pt-44 pb-20 sm:pb-30 relative overflow-hidden">
