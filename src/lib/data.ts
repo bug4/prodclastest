@@ -1,7 +1,7 @@
 // Data access layer — server-only fetching cu Supabase
 import "server-only";
 import { createClient } from "@/lib/supabase/server";
-import type { Collection, Promotion, ProductWithCollection, Article, Work } from "./types";
+import type { Collection, Promotion, ProductWithCollection, Article, Work, Thickness } from "./types";
 
 export async function getCollections(): Promise<Collection[]> {
   const supabase = await createClient();
@@ -27,9 +27,6 @@ export async function getProducts(opts?: {
   let query = supabase.from("products").select("*");
 
   if (opts?.featured) query = query.eq("is_featured", true);
-  if (opts?.thickness && opts.thickness !== "toate") {
-    query = query.eq("thickness", opts.thickness);
-  }
 
   // Sortare
   if (opts?.sortByPrice) {
@@ -38,7 +35,11 @@ export async function getProducts(opts?: {
     query = query.order("sort_order");
   }
 
-  if (opts?.limit) query = query.limit(opts.limit);
+  if (opts?.limit && (!opts?.thickness || opts.thickness === "toate")) {
+    // limit-ul il aplicam in DB doar daca nu filtram pe thickness
+    // (altfel poate sa taie produse care ar trece de filtru)
+    query = query.limit(opts.limit);
+  }
 
   const { data, error } = await query;
   if (error) {
@@ -46,7 +47,21 @@ export async function getProducts(opts?: {
     return [];
   }
 
-  return (data ?? []).map((p) => ({ ...p, collection: null })) as ProductWithCollection[];
+  let products = (data ?? []).map((p) => ({ ...p, collection: null })) as ProductWithCollection[];
+
+  // Filtrare pe thickness in JS (include si additional_thicknesses)
+  if (opts?.thickness && opts.thickness !== "toate") {
+    const t = opts.thickness;
+    products = products.filter((p) => {
+      if (p.thickness === t) return true;
+      if (Array.isArray(p.additional_thicknesses) && p.additional_thicknesses.includes(t as Thickness)) return true;
+      return false;
+    });
+    // Aplicam limit dupa filtrare daca era setat
+    if (opts.limit) products = products.slice(0, opts.limit);
+  }
+
+  return products;
 }
 
 export async function getProductBySlug(slug: string): Promise<ProductWithCollection | null> {

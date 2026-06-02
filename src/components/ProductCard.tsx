@@ -11,15 +11,25 @@ type Props = {
 };
 
 // Badge de grosime: bara verticala (sugereaza grosimea fizica) + text
+// Badge principal: solid (fundal crem, text auriu)
 function ThicknessBadge({ thickness }: { thickness: string }) {
-  const is12 = thickness === "12mm";
+  const isThick = thickness === "12mm" || thickness === "20mm";
   return (
-    <span className="absolute top-4 left-4 z-10 inline-flex items-center gap-2 bg-bg-paper/90 backdrop-blur-md pl-2.5 pr-3 py-1.5 rounded-full">
+    <span className="inline-flex items-center gap-2 bg-bg-paper/90 backdrop-blur-md pl-2.5 pr-3 py-1.5 rounded-full">
       <span className="flex items-end gap-[3px] h-3" aria-hidden="true">
-        <span className={`w-[2px] rounded-full bg-brass-deep ${is12 ? "h-3" : "h-1.5"}`} />
-        <span className={`w-[2px] rounded-full bg-brass-deep ${is12 ? "h-3" : "h-1.5"}`} />
+        <span className={`w-[2px] rounded-full bg-brass-deep ${isThick ? "h-3" : "h-1.5"}`} />
+        <span className={`w-[2px] rounded-full bg-brass-deep ${isThick ? "h-3" : "h-1.5"}`} />
       </span>
       <span className="text-[10px] font-semibold tracking-[0.12em] text-brass-deep">{thickness}</span>
+    </span>
+  );
+}
+
+// Badge secundar: outline auriu, transparent, "+12mm" / "+20mm"
+function AdditionalThicknessBadge({ thickness }: { thickness: string }) {
+  return (
+    <span className="inline-flex items-center px-2.5 py-1 rounded-full border border-brass-deep/60 bg-bg-paper/40 backdrop-blur-md">
+      <span className="text-[10px] font-semibold tracking-[0.12em] text-brass-deep">+{thickness}</span>
     </span>
   );
 }
@@ -31,7 +41,15 @@ export function ProductCard({ product, locale = DEFAULT_LOCALE }: Props) {
   return (
     <Link href={localeHref(locale, `/produse/${product.slug}`)} className="group block">
       <div className="relative aspect-[3/4] overflow-hidden rounded-xl bg-bg-deep mb-4">
-        {product.thickness && <ThicknessBadge thickness={product.thickness} />}
+        {product.thickness && (
+          <div className="absolute top-4 left-4 z-10 flex flex-wrap gap-1.5 items-center max-w-[calc(100%-2rem)]">
+            <ThicknessBadge thickness={product.thickness} />
+            {Array.isArray(product.additional_thicknesses) &&
+              product.additional_thicknesses.map((t) => (
+                <AdditionalThicknessBadge key={t} thickness={t} />
+              ))}
+          </div>
+        )}
 
         <Image
           src={imgSrc}

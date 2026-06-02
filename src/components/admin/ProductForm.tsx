@@ -78,7 +78,7 @@ export function ProductForm({ product }: Props) {
             />
           </Field>
 
-          <Field label="Grosime *" htmlFor="thickness">
+          <Field label="Grosime principală *" htmlFor="thickness">
             <select
               id="thickness"
               name="thickness"
@@ -88,8 +88,35 @@ export function ProductForm({ product }: Props) {
             >
               <option value="6mm">6mm</option>
               <option value="12mm">12mm</option>
+              <option value="20mm">20mm</option>
             </select>
           </Field>
+
+          <div>
+            <span className="text-[11px] tracking-[0.2em] uppercase text-ink-muted block mb-3">
+              Disponibil și în
+            </span>
+            <div className="flex flex-wrap gap-4 mt-2">
+              {(["6mm", "12mm", "20mm"] as const).map((t) => (
+                <label key={t} className="flex items-center gap-2 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    name="additional_thicknesses"
+                    value={t}
+                    defaultChecked={
+                      Array.isArray(product?.additional_thicknesses) &&
+                      product.additional_thicknesses.includes(t)
+                    }
+                    className="w-4 h-4 accent-brass-deep"
+                  />
+                  <span className="text-sm">{t}</span>
+                </label>
+              ))}
+            </div>
+            <span className="text-xs text-ink-muted block mt-2">
+              Bifează grosimile suplimentare în care produsul este disponibil pe lângă cea principală.
+            </span>
+          </div>
 
           <Field label="Preț (MDL / m²) *" htmlFor="price_mdl">
             <input

@@ -10,7 +10,7 @@ export type Collection = {
   created_at: string;
 };
 
-export type Thickness = "6mm" | "12mm";
+export type Thickness = "6mm" | "12mm" | "20mm";
 
 export type Product = {
   id: string;
@@ -18,6 +18,7 @@ export type Product = {
   name: string;
   collection_id: string | null;
   thickness: Thickness;
+  additional_thicknesses: Thickness[];
   price_mdl: number;
   origin: string | null;
   size: string | null;

@@ -96,13 +96,33 @@ export default async function ProductDetailPage({ params }: Props) {
                 <p className="text-lg leading-relaxed text-ink-soft mb-10">{product.description}</p>
               )}
 
-              <dl className="grid grid-cols-2 gap-6 border-y border-line py-8 mb-10">
+              <dl className="grid grid-cols-2 gap-6 border-y border-line py-8 mb-6">
                 {product.origin && <SpecItem label={tc.origin} value={product.origin} />}
                 {product.size && <SpecItem label={tc.format} value={`${product.size} cm`} />}
                 {product.thickness && <SpecItem label={tc.thickness} value={product.thickness} />}
                 {product.finish && <SpecItem label={tc.finish} value={product.finish} />}
                 <SpecItem label={tc.stock} value={product.in_stock ? tc.inStock : tc.onOrder} />
               </dl>
+
+              {Array.isArray(product.additional_thicknesses) && product.additional_thicknesses.length > 0 && (
+                <div className="mb-10 flex items-start gap-3 p-4 rounded-xl bg-brass/5 border border-brass/20">
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-brass-deep flex-shrink-0 mt-0.5">
+                    <circle cx="12" cy="12" r="10" />
+                    <path d="M12 16v-4M12 8h.01" />
+                  </svg>
+                  <p className="text-sm leading-relaxed text-ink-soft">
+                    {tc.alsoAvailableInPrefix}{" "}
+                    <span className="font-medium text-ink">
+                      {product.additional_thicknesses.join(", ")}
+                    </span>
+                    {tc.alsoAvailableInSuffix}{" "}
+                    <Link href={h("/contacte")} className="text-brass-deep hover:underline font-medium">
+                      {tc.contactUsLink}
+                    </Link>
+                    .
+                  </p>
+                </div>
+              )}
 
               <div className="flex items-end justify-between gap-6 mb-10">
                 <div>

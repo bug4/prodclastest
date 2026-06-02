@@ -43,6 +43,14 @@ export async function saveProduct(formData: FormData) {
     is_featured: formData.get("is_featured") === "on",
   };
 
+  // Additional thicknesses (din checkboxes). Scot grosimea principala daca cumva e bifata si acolo.
+  const mainThickness = String(data.thickness);
+  const additional = (formData.getAll("additional_thicknesses") as string[])
+    .map((t) => t.trim())
+    .filter((t) => t && t !== mainThickness);
+  // Deduplicate
+  data.additional_thicknesses = Array.from(new Set(additional));
+
   // Cover image (optional - daca nu e upload, pastreaza cea existenta)
   const coverFile = formData.get("image") as File | null;
   if (coverFile && coverFile.size > 0) {
