@@ -633,7 +633,7 @@ export function LavuarConfigurator({ tiles, labels }: Props) {
               }`}
               style={{ backgroundColor: "#e9e5de" }}
             />
-            <span className="text-[10px] tracking-[0.08em] text-ink-soft max-w-[80px] truncate">
+            <span className="text-[10px] leading-tight tracking-[0.08em] text-ink-soft w-20 text-center line-clamp-2">
               {labels.defaultWhite}
             </span>
           </button>
@@ -664,7 +664,7 @@ export function LavuarConfigurator({ tiles, labels }: Props) {
                   />
                 )}
               </span>
-              <span className="text-[10px] tracking-[0.08em] text-ink-soft max-w-[80px] truncate">
+              <span className="text-[10px] leading-tight tracking-[0.08em] text-ink-soft w-20 text-center line-clamp-2">
                 {tile.name}
               </span>
             </button>
