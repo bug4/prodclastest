@@ -54,6 +54,9 @@ export default async function LucrariPage({ params, searchParams }: Props) {
             <Link href={buildHref("blaturi")} className={`filter-pill whitespace-nowrap ${activeCategory === "blaturi" ? "active" : ""}`}>
               {t.filterCountertops}
             </Link>
+            <Link href={buildHref("altele")} className={`filter-pill whitespace-nowrap ${activeCategory === "altele" ? "active" : ""}`}>
+              {t.filterOther}
+            </Link>
           </div>
         </div>
 

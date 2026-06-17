@@ -18,6 +18,7 @@ export const dict = {
     nav: {
       home: "Acasă",
       products: "Produse",
+      configurator: "Configurator 3D",
       works: "Lucrări",
       worksAll: "Toate lucrările",
       worksWashbasins: "Lavoare",
@@ -49,6 +50,10 @@ export const dict = {
       alsoAvailableInPrefix: "Acest produs este disponibil și în grosimea",
       alsoAvailableInSuffix: ". Pentru mai multe detalii,",
       contactUsLink: "contactează-ne",
+      configuratorCtaEyebrow: "Configurator 3D",
+      configuratorCtaTitle: "Vezi cum arată placa pe un lavuar 3D",
+      configuratorCtaText: "Vizualizează textura acestei plăci aplicată pe un lavuar, în 3D interactiv.",
+      configuratorCtaButton: "Deschide configuratorul",
       stock: "Stoc",
       inStock: "Disponibil",
       onOrder: "Pe comandă",
@@ -155,6 +160,18 @@ export const dict = {
         relatedTitleB: "și",
       },
     },
+    // Configurator 3D
+    configurator: {
+      eyebrow: "Configurator 3D",
+      titleA: "Vezi placa pe",
+      titleB: "un lavuar",
+      desc: "Alege o placă din catalog și vezi în timp real cum ar arăta un lavuar suspendat realizat din ea. Rotește modelul cu mouse-ul sau degetul, mărește pentru detalii.",
+      hint: "trage ca să rotești · scroll / pinch pentru zoom",
+      finishLabel: "Alege finisajul",
+      defaultWhite: "Alb mat",
+      loading: "Se încarcă...",
+      note: "Modelul 3D este o reprezentare pentru a vizualiza textura plăcii pe forma lavuarului. La plăcile cu model amplu, aspectul final depinde de modul în care este tăiată placa de către fabricant. Pentru o ofertă personalizată, contactează-ne.",
+    },
     // Works (Lucrari)
     works: {
       eyebrow: "Portofoliu",
@@ -164,6 +181,7 @@ export const dict = {
       filterAll: "Toate",
       filterWashbasins: "Lavoare",
       filterCountertops: "Blaturi",
+      filterOther: "Alte lucrări",
       empty: "Momentan nu există lucrări în această categorie.",
       detail: {
         backToList: "Înapoi la lucrări",
@@ -175,6 +193,8 @@ export const dict = {
         infoDesigner: "Designer",
         prevImage: "Imagine anterioară",
         nextImage: "Imagine următoare",
+        zoomImage: "Mărește imaginea",
+        closeImage: "Închide",
       },
     },
     // Promotions
@@ -282,6 +302,7 @@ export const dict = {
     nav: {
       home: "Home",
       products: "Products",
+      configurator: "3D Configurator",
       works: "Works",
       worksAll: "All works",
       worksWashbasins: "Washbasins",
@@ -312,6 +333,10 @@ export const dict = {
       alsoAvailableInPrefix: "This product is also available in",
       alsoAvailableInSuffix: " thickness. For more details,",
       contactUsLink: "contact us",
+      configuratorCtaEyebrow: "3D Configurator",
+      configuratorCtaTitle: "See how this slab looks on a 3D washbasin",
+      configuratorCtaText: "Preview the texture of this slab applied to a washbasin, in interactive 3D.",
+      configuratorCtaButton: "Open the configurator",
       stock: "Stock",
       inStock: "Available",
       onOrder: "On order",
@@ -415,6 +440,18 @@ export const dict = {
         relatedTitleB: "more",
       },
     },
+    // Configurator 3D
+    configurator: {
+      eyebrow: "3D Configurator",
+      titleA: "See the tile on",
+      titleB: "a washbasin",
+      desc: "Pick a tile from the catalog and see in real time how a suspended washbasin made from it would look. Rotate the model with your mouse or finger, zoom in for details.",
+      hint: "drag to rotate · scroll / pinch to zoom",
+      finishLabel: "Choose finish",
+      defaultWhite: "Matte white",
+      loading: "Loading...",
+      note: "The 3D model is a representation to visualize the tile texture on the washbasin shape. For tiles with a large pattern, the final look depends on how the slab is cut by the fabricator. For a personalized quote, contact us.",
+    },
     works: {
       eyebrow: "Portfolio",
       titleA: "Our",
@@ -423,6 +460,7 @@ export const dict = {
       filterAll: "All",
       filterWashbasins: "Washbasins",
       filterCountertops: "Countertops",
+      filterOther: "Other works",
       empty: "No works in this category at the moment.",
       detail: {
         backToList: "Back to works",
@@ -434,6 +472,8 @@ export const dict = {
         infoDesigner: "Designer",
         prevImage: "Previous image",
         nextImage: "Next image",
+        zoomImage: "Enlarge image",
+        closeImage: "Close",
       },
     },
     promotions: {
@@ -537,6 +577,7 @@ export const dict = {
     nav: {
       home: "Главная",
       products: "Продукция",
+      configurator: "3D Конфигуратор",
       works: "Работы",
       worksAll: "Все работы",
       worksWashbasins: "Раковины",
@@ -567,6 +608,10 @@ export const dict = {
       alsoAvailableInPrefix: "Этот продукт также доступен в толщине",
       alsoAvailableInSuffix: ". Для получения более подробной информации,",
       contactUsLink: "свяжитесь с нами",
+      configuratorCtaEyebrow: "3D-конфигуратор",
+      configuratorCtaTitle: "Посмотрите, как плита выглядит на 3D-раковине",
+      configuratorCtaText: "Просмотрите текстуру этой плиты на раковине в интерактивном 3D.",
+      configuratorCtaButton: "Открыть конфигуратор",
       stock: "Наличие",
       inStock: "В наличии",
       onOrder: "Под заказ",
@@ -670,6 +715,18 @@ export const dict = {
         relatedTitleB: "также",
       },
     },
+    // Configurator 3D
+    configurator: {
+      eyebrow: "3D Конфигуратор",
+      titleA: "Посмотрите плитку на",
+      titleB: "раковине",
+      desc: "Выберите плитку из каталога и увидите в реальном времени, как будет выглядеть подвесная раковина, изготовленная из неё. Вращайте модель мышью или пальцем, приближайте для деталей.",
+      hint: "перетащите, чтобы повернуть · прокрутка / щипок для масштаба",
+      finishLabel: "Выберите отделку",
+      defaultWhite: "Матовый белый",
+      loading: "Загрузка...",
+      note: "3D-модель — это представление для визуализации текстуры плитки на форме раковины. Для плит с крупным рисунком окончательный вид зависит от того, как плита будет распилена изготовителем. Для индивидуального предложения свяжитесь с нами.",
+    },
     works: {
       eyebrow: "Портфолио",
       titleA: "Наши",
@@ -678,6 +735,7 @@ export const dict = {
       filterAll: "Все",
       filterWashbasins: "Раковины",
       filterCountertops: "Столешницы",
+      filterOther: "Другие работы",
       empty: "В этой категории пока нет работ.",
       detail: {
         backToList: "Назад к работам",
@@ -689,6 +747,8 @@ export const dict = {
         infoDesigner: "Дизайнер",
         prevImage: "Предыдущее изображение",
         nextImage: "Следующее изображение",
+        zoomImage: "Увеличить изображение",
+        closeImage: "Закрыть",
       },
     },
     promotions: {

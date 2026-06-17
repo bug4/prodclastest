@@ -10,6 +10,7 @@ function placeholderCover(category: string, seed: string): string {
   const colors: Record<string, [string, string]> = {
     lavoare: ["#e6d3a8", "#8c6a3a"],
     blaturi: ["#3a342c", "#1a1814"],
+    altele: ["#c9a76b", "#5a4a30"],
   };
   const [c1, c2] = colors[category] ?? colors.lavoare;
   let hash = 0;

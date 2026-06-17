@@ -63,6 +63,7 @@ export function Nav() {
   const simpleLinks = [
     { internal: "/", label: t.home },
     { internal: "/produse", label: t.products },
+    { internal: "/configurator", label: t.configurator },
   ];
   const trailingLinks = [
     { internal: "/promotii", label: t.promotions },

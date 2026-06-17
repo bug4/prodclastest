@@ -53,6 +53,7 @@ export function WorkForm({ work }: Props) {
             <select id="category" name="category" required defaultValue={work?.category ?? "lavoare"} className={inputStyle}>
               <option value="lavoare">Lavoare</option>
               <option value="blaturi">Blaturi</option>
+              <option value="altele">Alte lucrări</option>
             </select>
           </Field>
           <Field label="Subtitlu (Designer / Studio)" htmlFor="subtitle">

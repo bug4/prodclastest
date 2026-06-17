@@ -141,6 +141,29 @@ export default async function ProductDetailPage({ params }: Props) {
                 </Link>
                 <Link href={h("/contacte")} className="btn btn-ghost">{tc.requestSample}</Link>
               </div>
+
+              {/* CTA configurator 3D */}
+              <Link
+                href={h("/configurator")}
+                className="group mt-2 flex items-center gap-4 rounded-2xl border border-line bg-bg-paper p-5 transition-colors hover:border-brass"
+              >
+                <span className="flex-shrink-0 w-12 h-12 rounded-xl bg-bg-deep flex items-center justify-center text-brass-deep">
+                  <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.6">
+                    <path d="M12 2 L21 7 V17 L12 22 L3 17 V7 Z" />
+                    <path d="M3 7 L12 12 L21 7 M12 12 V22" />
+                  </svg>
+                </span>
+                <span className="flex-1 min-w-0">
+                  <span className="block text-[10px] tracking-[0.2em] uppercase text-ink-muted">{tc.configuratorCtaEyebrow}</span>
+                  <span className="block font-serif text-lg leading-snug text-ink mt-0.5">{tc.configuratorCtaTitle}</span>
+                  <span className="block text-sm text-ink-muted mt-1">{tc.configuratorCtaText}</span>
+                </span>
+                <span className="flex-shrink-0 text-brass-deep transition-transform group-hover:translate-x-1">
+                  <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.8">
+                    <path d="M5 12h14M13 6l6 6-6 6" />
+                  </svg>
+                </span>
+              </Link>
             </div>
           </div>
         </section>

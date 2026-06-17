@@ -80,7 +80,7 @@ export type ContactSubmission = {
   created_at: string;
 };
 
-export type WorkCategory = "lavoare" | "blaturi";
+export type WorkCategory = "lavoare" | "blaturi" | "altele";
 
 export type Work = {
   id: string;

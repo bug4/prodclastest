@@ -49,6 +49,7 @@ export default async function WorkDetailPage({ params }: Props) {
     const colors: Record<string, [string, string]> = {
       lavoare: ["#e6d3a8", "#8c6a3a"],
       blaturi: ["#3a342c", "#1a1814"],
+      altele: ["#c9a76b", "#5a4a30"],
     };
     const [c1, c2] = colors[work.category] ?? colors.lavoare;
     const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" preserveAspectRatio="xMidYMid slice">
@@ -90,7 +91,11 @@ export default async function WorkDetailPage({ params }: Props) {
   }
 
   const categoryLabel =
-    work.category === "lavoare" ? t.filterWashbasins : t.filterCountertops;
+    work.category === "lavoare"
+      ? t.filterWashbasins
+      : work.category === "blaturi"
+        ? t.filterCountertops
+        : t.filterOther;
 
   return (
     <>
@@ -123,6 +128,8 @@ export default async function WorkDetailPage({ params }: Props) {
             alt={work.title}
             prevLabel={td.prevImage}
             nextLabel={td.nextImage}
+            zoomLabel={td.zoomImage}
+            closeLabel={td.closeImage}
           />
 
           {/* Info + Description */}

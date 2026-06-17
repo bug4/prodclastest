@@ -53,7 +53,7 @@ export default async function AdminLucrariList() {
                 </td>
                 <td className="p-4 text-sm">
                   <span className="px-2.5 py-1 rounded-full bg-bg-deep text-xs tracking-wide uppercase">
-                    {w.category === "lavoare" ? "Lavoare" : "Blaturi"}
+                    {w.category === "lavoare" ? "Lavoare" : w.category === "blaturi" ? "Blaturi" : "Alte lucrări"}
                   </span>
                 </td>
                 <td className="p-4 text-sm text-ink-muted">
