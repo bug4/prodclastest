@@ -417,6 +417,8 @@ export function LavuarConfigurator({ tiles, labels }: Props) {
     let rotY = 0.5, rotX = 0.4, dist = 2.45, auto = true;
     const t0 = performance.now();
     let dragging = false, px = 0, py = 0;
+    let pinch0 = 0;
+    let pinching = false;
 
     const clampY = (v: number) => Math.max(-0.92, Math.min(0.92, v));
     const clampX = (v: number) => Math.max(0.06, Math.min(0.8, v));
@@ -429,7 +431,7 @@ export function LavuarConfigurator({ tiles, labels }: Props) {
       stage!.classList.add("dragging");
     }
     function moveFn(x: number, y: number) {
-      if (!dragging) return;
+      if (!dragging || pinching) return;
       rotY = clampY(rotY + (x - px) * 0.008);
       rotX = clampX(rotX + (y - py) * 0.005);
       px = x;
@@ -441,6 +443,8 @@ export function LavuarConfigurator({ tiles, labels }: Props) {
     }
 
     const onPointerDown = (e: PointerEvent) => {
+      // ignoram pointer-ul de tip touch cand deja avem 2 degete (pinch in curs)
+      if (pinching) return;
       stage!.setPointerCapture(e.pointerId);
       down(e.clientX, e.clientY);
     };
@@ -449,9 +453,13 @@ export function LavuarConfigurator({ tiles, labels }: Props) {
       e.preventDefault();
       dist = Math.max(1.5, Math.min(4.6, dist + e.deltaY * 0.0025));
     };
-    let pinch0 = 0;
     const onTouchStart = (e: TouchEvent) => {
       if (e.touches.length === 2) {
+        // intram in mod pinch: oprim orice rotatie in curs
+        pinching = true;
+        dragging = false;
+        stage!.classList.remove("dragging");
+        if (auto) auto = false;
         pinch0 = Math.hypot(
           e.touches[0].clientX - e.touches[1].clientX,
           e.touches[0].clientY - e.touches[1].clientY
@@ -468,6 +476,17 @@ export function LavuarConfigurator({ tiles, labels }: Props) {
         pinch0 = d;
       }
     };
+    const onTouchEnd = (e: TouchEvent) => {
+      // iesim din pinch doar cand au ramas sub 2 degete
+      if (e.touches.length < 2) {
+        pinching = false;
+        // resincronizam punctul de drag cu degetul ramas, ca sa nu sara
+        if (e.touches.length === 1) {
+          px = e.touches[0].clientX;
+          py = e.touches[0].clientY;
+        }
+      }
+    };
 
     stage.addEventListener("pointerdown", onPointerDown);
     stage.addEventListener("pointermove", onPointerMove);
@@ -476,6 +495,8 @@ export function LavuarConfigurator({ tiles, labels }: Props) {
     stage.addEventListener("wheel", onWheel, { passive: false });
     stage.addEventListener("touchstart", onTouchStart, { passive: true });
     stage.addEventListener("touchmove", onTouchMove, { passive: true });
+    stage.addEventListener("touchend", onTouchEnd, { passive: true });
+    stage.addEventListener("touchcancel", onTouchEnd, { passive: true });
 
     /* ============ loop ============ */
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -516,6 +537,8 @@ export function LavuarConfigurator({ tiles, labels }: Props) {
       stage.removeEventListener("wheel", onWheel);
       stage.removeEventListener("touchstart", onTouchStart);
       stage.removeEventListener("touchmove", onTouchMove);
+      stage.removeEventListener("touchend", onTouchEnd);
+      stage.removeEventListener("touchcancel", onTouchEnd);
       applyFinishRef.current = null;
 
       // dispose resurse
