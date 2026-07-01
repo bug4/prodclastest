@@ -41,6 +41,7 @@ export async function saveProduct(formData: FormData) {
     description: String(formData.get("description") ?? "").trim() || null,
     in_stock: formData.get("in_stock") === "on",
     is_featured: formData.get("is_featured") === "on",
+    show_in_configurator: formData.get("show_in_configurator") === "on",
   };
 
   // Additional thicknesses (din checkboxes). Scot grosimea principala daca cumva e bifata si acolo.

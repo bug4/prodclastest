@@ -15,7 +15,7 @@ export default async function ConfiguratorPage({ params }: Props) {
   const { locale } = await params;
   const t = getDict(locale).configurator;
 
-  const products = await getProducts();
+  const products = await getProducts({ configuratorOnly: true });
   const tiles: ConfiguratorTile[] = products
     .filter((p) => p.image_url)
     .map((p) => ({ name: p.name, img: p.image_url, slug: p.slug }));

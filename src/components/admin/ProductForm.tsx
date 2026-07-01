@@ -190,6 +190,15 @@ export function ProductForm({ product }: Props) {
             />
             <span className="text-sm">Featured (apare pe homepage)</span>
           </label>
+          <label className="flex items-center gap-3 cursor-pointer">
+            <input
+              type="checkbox"
+              name="show_in_configurator"
+              defaultChecked={product?.show_in_configurator ?? true}
+              className="w-5 h-5 accent-brass-deep"
+            />
+            <span className="text-sm">Afișează în configuratorul 3D</span>
+          </label>
         </div>
       </div>
 

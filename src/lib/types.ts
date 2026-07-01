@@ -28,6 +28,7 @@ export type Product = {
   gallery_images: string[];
   in_stock: boolean;
   is_featured: boolean;
+  show_in_configurator: boolean;
   sort_order: number;
   created_at: string;
   updated_at: string;

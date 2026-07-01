@@ -21,12 +21,14 @@ export async function getProducts(opts?: {
   featured?: boolean;
   limit?: number;
   sortByPrice?: "asc" | "desc";
+  configuratorOnly?: boolean;
 }): Promise<ProductWithCollection[]> {
   const supabase = await createClient();
 
   let query = supabase.from("products").select("*");
 
   if (opts?.featured) query = query.eq("is_featured", true);
+  if (opts?.configuratorOnly) query = query.eq("show_in_configurator", true);
 
   // Sortare
   if (opts?.sortByPrice) {
